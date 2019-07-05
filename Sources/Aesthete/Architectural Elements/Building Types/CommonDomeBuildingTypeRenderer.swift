@@ -1,7 +1,7 @@
 //  Created by B.T. Franklin on 4/29/19
 
 import CoreGraphics
-import Utilities
+import DunesailerUtilities
 
 public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
     

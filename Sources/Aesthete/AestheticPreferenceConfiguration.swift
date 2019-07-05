@@ -1,7 +1,7 @@
 //  Created by B.T. Franklin on 4/1/19
 
 import CoreGraphics
-import Utilities
+import DunesailerUtilities
 
 public struct AestheticPreferenceConfiguration {
     

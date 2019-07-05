@@ -1,7 +1,7 @@
 //  Created by B.T. Franklin on 4/20/19
 
 import CoreGraphics
-import Utilities
+import DunesailerUtilities
 
 public struct SkyColor {
     

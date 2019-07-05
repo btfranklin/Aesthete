@@ -1,7 +1,7 @@
 //  Created by B.T. Franklin on 4/28/19
 
 import CoreGraphics
-import Utilities
+import DunesailerUtilities
 
 public struct BuildingWallRenderer {
     

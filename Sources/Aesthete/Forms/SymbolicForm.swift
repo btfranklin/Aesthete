@@ -1,7 +1,7 @@
 //  Created by B.T. Franklin on 4/7/19
 
-import Utilities
 import CoreGraphics
+import DunesailerUtilities
 
 public struct SymbolicForm {
     

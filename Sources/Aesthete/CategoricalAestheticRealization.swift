@@ -1,6 +1,6 @@
 //  Created by B.T. Franklin on 4/1/19
 
-import Utilities
+import DunesailerUtilities
 
 #if canImport(iOS)
 import UIKit
