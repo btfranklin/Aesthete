@@ -1,5 +1,9 @@
 //  Created by B.T. Franklin on 4/29/19
 
+#if os(iOS)
+import UIKit
+#endif
+
 import CoreGraphics
 import DunesailerUtilities
 
@@ -44,7 +48,12 @@ public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
         // Set the clip
         context.addPath(domePath)
         context.clip()
+        
+        #if os(iOS)
+        context.setStrokeColor(UIColor.black.cgColor)
+        #else
         context.setStrokeColor(.black)
+        #endif
         context.strokePath()
         
         // Maybe draw shapes on the walls

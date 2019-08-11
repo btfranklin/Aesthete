@@ -1,5 +1,9 @@
 //  Created by B.T. Franklin on 4/27/19
 
+#if os(iOS)
+import UIKit
+#endif
+
 import CoreGraphics
 import DunesailerUtilities
 
@@ -70,7 +74,12 @@ public struct WindowTypeRenderer {
         let fillColor: CGColor
         
         if lightInside {
+            #if os(iOS)
+            let lightColor = UIColor(hue: 0.6, saturation: 1, brightness: 0.5, alpha: 1).cgColor
+            #else
             let lightColor = CGColor(genericCMYKCyan: 0.1, magenta: 0.1, yellow: 1, black: 0, alpha: 1)
+            #endif
+            
             fillColor = lightColor
         } else {
             let adjustment: CGFloat = hasGlass ? -0.5 : -0.3
@@ -82,8 +91,14 @@ public struct WindowTypeRenderer {
     }
     
     private func drawClippedGlass(in rect: CGRect, on context: CGContext) {
+        #if os(iOS)
+        let glassColor1 = UIColor(red: 1, green: 1, blue: 1, alpha: 0.0).cgColor
+        let glassColor2 = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+        #else
         let glassColor1 = CGColor(red: 1, green: 1, blue: 1, alpha: 0.0)
         let glassColor2 = CGColor(red: 1, green: 1, blue: 1, alpha: 0.3)
+        #endif
+        
         let glassGradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
                                        colors: [glassColor1, glassColor2, glassColor1] as CFArray,
                                        locations: [0.0, 0.65, 1.0])

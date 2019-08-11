@@ -2,7 +2,7 @@
 
 import DunesailerUtilities
 
-#if canImport(iOS)
+#if os(iOS)
 import UIKit
 #else
 import AppKit
