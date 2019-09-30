@@ -5,76 +5,30 @@ import DunesailerUtilities
 
 public struct BuildingWallRenderer {
     
-    public let categoricalAestheticRealization: CategoricalAestheticRealization
+    public let colorScheme: ColorScheme
     
-    public init(categoricalAestheticRealization: CategoricalAestheticRealization) {
-        self.categoricalAestheticRealization = categoricalAestheticRealization
+    public init(colorScheme: ColorScheme) {
+        self.colorScheme = colorScheme
     }
     
     public func draw(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
         
         context.saveGState()
         
-        // Create the appropriate fill color
         let fillColor = createFillColor(saturation: saturation, brightness: brightness)
         context.setFillColor(CGColor.create(from: fillColor))
         context.fill(rect)
-        
-        context.restoreGState()
-    }
-    
-    public func drawWithHorizontalDecoration(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
-        
-        context.saveGState()
-        
-        // Create the appropriate fill color
-        let fillColor = createFillColor(saturation: saturation, brightness: brightness)
-        context.setFillColor(CGColor.create(from: fillColor))
-        context.fill(rect)
-
-        // Horizontal lines
-        for _ in 1...Int.random(in: 1...10) {
-            drawHorizontalDecoration(in: rect, on: context)
-        }
         
         context.restoreGState()
     }
     
     private func createFillColor(saturation: CGFloat, brightness: CGFloat) -> HSBAColor {
-        var fillColor = categoricalAestheticRealization.colorScheme.colors[0]
+        var fillColor = colorScheme.colors[0]
         fillColor = HSBAColor(hue: fillColor.hue,
                               saturation: fillColor.saturation * 0.25 * saturation,
                               brightness: fillColor.brightness * brightness,
                               alpha: 1.0)
         return fillColor
     }
-    
-    private func drawHorizontalDecoration(in rect: CGRect, on context: CGContext) {
-        
-        let mutablePath = CGMutablePath()
-        
-        // Select a form and configure the context
-        let form = categoricalAestheticRealization.pathCreator
-        let divisions = Int.random(in: 3...10)
-        let formRectHeight = rect.height * 0.1
-        let formRectWidth = rect.width / CGFloat(divisions)
-        context.setLineWidth(CGFloat(10) / CGFloat(divisions))
-        context.setStrokeColor(CGColor.create(from: categoricalAestheticRealization.colorScheme.colors[1]))
 
-        // Rectangles across a single line at random vertical position
-        let verticalPosition = CGFloat.random(in: rect.minY...rect.maxY)
-        let formRectangle = CGRect(x: rect.minX,
-                                   y: rect.minY,
-                                   width: formRectWidth,
-                                   height: formRectHeight)
-        
-        for i in 0..<divisions {
-            let translateTransform = CGAffineTransform(translationX: CGFloat(i) * formRectWidth, y: verticalPosition)
-            let formPath = form.createPath(in: formRectangle)
-            mutablePath.addPath(formPath, transform: translateTransform)
-        }
-        
-        context.addPath(mutablePath)
-        context.strokePath()
-    }
 }

@@ -9,16 +9,26 @@ import DunesailerUtilities
 
 public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
     
-    public let categoricalAestheticRealization: CategoricalAestheticRealization
+    public let colorScheme: ColorScheme
     public let buildingWallRenderer: BuildingWallRenderer
     public let doorTypeRenderer: DoorTypeRenderer
     public let windowTypeRenderer: WindowTypeRenderer
     
-    public init(categoricalAestheticRealization: CategoricalAestheticRealization) {
-        self.categoricalAestheticRealization = categoricalAestheticRealization
-        buildingWallRenderer = BuildingWallRenderer(categoricalAestheticRealization: categoricalAestheticRealization)
-        doorTypeRenderer = DoorTypeRenderer(themeColor: categoricalAestheticRealization.colorScheme.colors[3])
-        windowTypeRenderer = WindowTypeRenderer(themeColor: categoricalAestheticRealization.colorScheme.colors[3])
+    public init(colorScheme: ColorScheme) {
+        self.colorScheme = colorScheme
+        
+        // Maybe draw shapes on the walls
+        switch Int.random(in: 1...100) {
+        case 1...25:
+//            buildingWallRenderer = BuildingWallWithHorizontalDecorationRenderer(colorScheme: colorScheme)
+            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
+
+        default:
+            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
+        }
+
+        doorTypeRenderer = DoorTypeRenderer(themeColor: colorScheme.colors[3])
+        windowTypeRenderer = WindowTypeRenderer(themeColor: colorScheme.colors[3])
     }
     
     public func drawInstance(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat, storeyCount: Int = 1) {
@@ -56,14 +66,7 @@ public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
         #endif
         context.strokePath()
         
-        // Maybe draw shapes on the walls
-        switch Int.random(in: 1...100) {
-        case 1...25:
-            buildingWallRenderer.drawWithHorizontalDecoration(in: rect, on: context, saturation: saturation, brightness: brightness)
-            
-        default:
-            buildingWallRenderer.draw(in: rect, on: context, saturation: saturation, brightness: brightness)
-        }
+        buildingWallRenderer.draw(in: rect, on: context, saturation: saturation, brightness: brightness)
         
         var avoidRects = [CGRect]()
 
