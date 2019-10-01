@@ -2,37 +2,25 @@
 
 import CoreGraphics
 
-public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
+public struct CommonArchBuildingRenderer {
     
-    public let colorScheme: ColorScheme
-    public let buildingWallRenderer: BuildingWallRenderer
-    public let doorTypeRenderer: DoorTypeRenderer
-    public let windowTypeRenderer: WindowTypeRenderer
-
-    public init(colorScheme: ColorScheme) {
-        self.colorScheme = colorScheme
-        
-        switch Int.random(in: 1...100) {
-        case 1...25:
-//            buildingWallRenderer = BuildingWallWithHorizontalDecorationRenderer(colorScheme: colorScheme)
-            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
-
-        default:
-            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
-        }
-        doorTypeRenderer = DoorTypeRenderer(themeColor: colorScheme.colors[3])
-        windowTypeRenderer = WindowTypeRenderer(themeColor: colorScheme.colors[3])
-    }
-
-    public func drawInstance(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat, storeyCount: Int = 1) {
-        
-        guard rect.width / rect.height == 1 else {
-            fatalError("Common Arch buildings can only be rendered into square areas.")
-        }
-        
-        guard (1...2).contains(storeyCount) else {
+    public let building: Building
+    
+    public init(building: Building) {
+        guard (1...2).contains(building.storeyCount) else {
             fatalError("Common Arch buildings can only have 1 or 2 storeys.")
         }
+        self.building = building
+    }
+
+    public func draw(in rect: CGRect,
+                     on context: CGContext,
+                     saturation: CGFloat,
+                     brightness: CGFloat) {
+        
+//        guard rect.width / rect.height == 1 else {
+//            fatalError("Common Arch buildings can only be rendered into square areas.")
+//        }
         
         context.saveGState()
         
@@ -49,10 +37,10 @@ public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
         context.addPath(archPath)
         context.clip()
 
-        buildingWallRenderer.draw(in: rect, on: context, saturation: saturation, brightness: brightness)
+        BuildingWallRenderer(wall: building.wall).draw(in: rect, on: context, saturation: saturation, brightness: brightness)
         
         // Draw the door, constrained to the arch
-        let hasSecondStorey = storeyCount == 2
+        let hasSecondStorey = building.storeyCount == 2
         let doorHeight = hasSecondStorey ? rect.height * 0.25 : rect.height * 0.4
         let doorWidth = doorHeight / 2.5
         
@@ -63,11 +51,14 @@ public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
                                    width: doorWidth,
                                    height: doorHeight)
         } while !archPath.contains(doorRectangle)
-        doorTypeRenderer.drawInstance(in: doorRectangle, with: context, saturation: saturation, brightness: brightness)
+        
+        DoorRenderer(door: building.door).draw(in: doorRectangle, with: context, saturation: saturation, brightness: brightness)
         
         // Draw some windows, constrained to the arch and avoiding the door
         let windowHeight = doorHeight * 0.5
         let windowWidth = doorWidth
+        
+        let windowPrototype = Window(type: building.windowType, themeColor: building.colorScheme.colors[3])
         
         if hasSecondStorey {
             
@@ -84,7 +75,7 @@ public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
                                              height: windowHeight)
                 } while windowRectangle.intersects(avoidRects) || !archPath.contains(windowRectangle)
                 avoidRects.append(windowRectangle)
-                windowTypeRenderer.drawInstance(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
+                WindowRenderer(window: windowPrototype).draw(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
             }
             
             // Second-floor windows
@@ -97,7 +88,7 @@ public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
                                              height: windowHeight)
                 } while windowRectangle.intersects(avoidRects) || !archPath.contains(windowRectangle)
                 avoidRects.append(windowRectangle)
-                windowTypeRenderer.drawInstance(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
+                WindowRenderer(window: windowPrototype).draw(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
             }
             
         } else {
@@ -108,7 +99,7 @@ public struct CommonArchBuildingTypeRenderer: BuildingTypeRenderer {
                                          width: windowWidth,
                                          height: windowHeight)
             } while doorRectangle.intersects(windowRectangle) || !archPath.contains(windowRectangle)
-            windowTypeRenderer.drawInstance(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
+            WindowRenderer(window: windowPrototype).draw(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
         }
         
         context.restoreGState()

@@ -1,69 +1,35 @@
-//  Created by B.T. Franklin on 4/27/19
+//  Created by B.T. Franklin on 9/30/19
 
 import CoreGraphics
-import DunesailerUtilities
 
-public struct DoorTypeRenderer {
+public struct DoorRenderer {
     
-    enum Shape {
-        case rectangular
-        case curveTopped
-        case curved
+    public let door: Door
+    
+    public init(door: Door) {
+        self.door = door
     }
     
-    enum Style {
-        case plain
-        case blocks
-        case slats
-    }
-    
-    let shape: Shape
-    let style: Style
-    let themeColor: HSBAColor
-    
-    public init(themeColor: HSBAColor) {
-        
-        self.themeColor = themeColor
-        
-        switch Int.random(in: 1...100) {
-        case 1...25:
-            shape = .curveTopped
-        case 26...35:
-            shape = .curved
-        default:
-            shape = .rectangular
-        }
-        
-        switch Int.random(in: 1...100) {
-        case 1...33:
-            style = .blocks
-        case 34...66:
-            style = .slats
-        default:
-            style = .plain
-        }
-    }
-    
-    public func drawInstance(in rect: CGRect,
-                             with context: CGContext,
-                             saturation: CGFloat,
-                             brightness: CGFloat) {
+    public func draw(in rect: CGRect,
+                     with context: CGContext,
+                     saturation: CGFloat,
+                     brightness: CGFloat) {
         
         context.saveGState()
         
-        var lighterColor = themeColor
+        var lighterColor = door.themeColor
         lighterColor = HSBAColor(hue: lighterColor.hue,
                                  saturation: lighterColor.saturation * 0.25 * saturation,
                                  brightness: lighterColor.brightness * brightness,
                                  alpha: 1.0)
         let darkerColor = lighterColor.brightnessAdjusted(by: -0.1)
         
-        switch shape {
+        switch door.type.shape {
         case .rectangular:
-            drawRectangular(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
+            drawRectangular(door, in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
             
         case .curveTopped:
-            drawCurveTopped(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
+            drawCurveTopped(door, in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
             
         case .curved:
             drawCurved(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
@@ -160,11 +126,12 @@ public struct DoorTypeRenderer {
         }
     }
         
-    private func drawRectangular(in rect: CGRect,
+    private func drawRectangular(_ door: Door,
+                                 in rect: CGRect,
                                  with context: CGContext,
                                  lighterColor: HSBAColor,
                                  darkerColor: HSBAColor) {
-        switch style {
+        switch door.type.style {
         case .plain:
             drawPlain(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
             
@@ -176,14 +143,15 @@ public struct DoorTypeRenderer {
         }
     }
     
-    private func drawCurveTopped(in rect: CGRect,
+    private func drawCurveTopped(_ door: Door,
+                                 in rect: CGRect,
                                  with context: CGContext,
                                  lighterColor: HSBAColor,
                                  darkerColor: HSBAColor) {
         
         let rectangularDoorPart = CGRect(origin: rect.origin, size: CGSize(width: rect.width, height: rect.height - (rect.width/2)))
         
-        switch style {
+        switch door.type.style {
         case .plain:
             drawPlain(in: rectangularDoorPart, with: context, lighterColor: lighterColor, darkerColor: darkerColor)
             
@@ -246,5 +214,4 @@ public struct DoorTypeRenderer {
         context.addQuadCurve(to: rect.bottomRightCorner.applying(CGAffineTransform(translationX: -inset, y: 0)),
                              control: outerControlPoint.applying(CGAffineTransform(translationX: 0, y: -inset*2)))
         context.fillPath()
-    }
-}
+    }}

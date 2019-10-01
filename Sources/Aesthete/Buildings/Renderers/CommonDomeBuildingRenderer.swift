@@ -7,40 +7,26 @@ import UIKit
 import CoreGraphics
 import DunesailerUtilities
 
-public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
+public struct CommonDomeBuildingRenderer {
     
-    public let colorScheme: ColorScheme
-    public let buildingWallRenderer: BuildingWallRenderer
-    public let doorTypeRenderer: DoorTypeRenderer
-    public let windowTypeRenderer: WindowTypeRenderer
+    public let building: Building
     
-    public init(colorScheme: ColorScheme) {
-        self.colorScheme = colorScheme
-        
-        // Maybe draw shapes on the walls
-        switch Int.random(in: 1...100) {
-        case 1...25:
-//            buildingWallRenderer = BuildingWallWithHorizontalDecorationRenderer(colorScheme: colorScheme)
-            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
-
-        default:
-            buildingWallRenderer = BuildingWallRenderer(colorScheme: colorScheme)
-        }
-
-        doorTypeRenderer = DoorTypeRenderer(themeColor: colorScheme.colors[3])
-        windowTypeRenderer = WindowTypeRenderer(themeColor: colorScheme.colors[3])
-    }
-    
-    public func drawInstance(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat, storeyCount: Int = 1) {
-        
-        guard rect.width / rect.height == 2 else {
-            fatalError("Common Dome buildings can only be rendered into rectangular areas with width double the height.")
-        }
-        
-        guard (1...4).contains(storeyCount) else {
+    public init(building: Building) {
+        guard (1...4).contains(building.storeyCount) else {
             fatalError("Common Dome buildings can only have from 1 to 4 storeys.")
         }
+        self.building = building
+    }
 
+    public func draw(in rect: CGRect,
+                     on context: CGContext,
+                     saturation: CGFloat,
+                     brightness: CGFloat) {
+        
+//        guard rect.width / rect.height == 2 else {
+//            fatalError("Common Dome buildings can only be rendered into rectangular areas with width double the height.")
+//        }
+        
         context.saveGState()
         
         // Create the path of the dome-shaped building outline
@@ -66,12 +52,12 @@ public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
         #endif
         context.strokePath()
         
-        buildingWallRenderer.draw(in: rect, on: context, saturation: saturation, brightness: brightness)
+        BuildingWallRenderer(wall: building.wall).draw(in: rect, on: context, saturation: saturation, brightness: brightness)
         
         var avoidRects = [CGRect]()
 
         // Draw the door, constrained to the dome
-        let structuralStoreyHeight = rect.height / CGFloat(storeyCount + 1)
+        let structuralStoreyHeight = rect.height / CGFloat(building.storeyCount + 1)
         let doorHeight = structuralStoreyHeight * 0.75
         let doorWidth = doorHeight / 2.5
         
@@ -82,19 +68,22 @@ public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
                                    width: doorWidth,
                                    height: doorHeight)
         } while !domePath.contains(doorRectangle)
-        doorTypeRenderer.drawInstance(in: doorRectangle, with: context, saturation: saturation, brightness: brightness)
+        
+        DoorRenderer(door: building.door).draw(in: doorRectangle, with: context, saturation: saturation, brightness: brightness)
         avoidRects.append(doorRectangle)
         
         // Draw some windows, constrained to the arch and avoiding the door
         let windowHeight = doorHeight * 0.5
         let windowWidth = doorWidth
 
-        for storey in 1...storeyCount {
+        let windowPrototype = Window(type: building.windowType, themeColor: building.colorScheme.colors[3])
+
+        for storey in 1...building.storeyCount {
             
             let storeyOffset = (structuralStoreyHeight * CGFloat(storey - 1)) + (structuralStoreyHeight * 0.5)
             let yPosition = rect.minY + storeyOffset
             
-            for _ in 1...Int.random(in: (storeyCount...storeyCount+2)) {
+            for _ in 1...Int.random(in: (building.storeyCount...building.storeyCount+2)) {
                 var windowRectangle: CGRect
                 repeat {
                     windowRectangle = CGRect(x: CGFloat.random(in: 0...rect.maxX),
@@ -103,7 +92,7 @@ public struct CommonDomeBuildingTypeRenderer: BuildingTypeRenderer {
                                              height: windowHeight)
                 } while windowRectangle.intersects(avoidRects) || !domePath.contains(windowRectangle)
                 avoidRects.append(windowRectangle)
-                windowTypeRenderer.drawInstance(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
+                WindowRenderer(window: windowPrototype).draw(in: windowRectangle, with: context, saturation: saturation, brightness: brightness)
             }
         }
         

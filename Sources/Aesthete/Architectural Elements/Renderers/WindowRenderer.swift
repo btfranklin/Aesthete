@@ -1,52 +1,23 @@
-//  Created by B.T. Franklin on 4/27/19
-
-#if os(iOS)
-import UIKit
-#endif
+//  Created by B.T. Franklin on 9/30/19
 
 import CoreGraphics
-import DunesailerUtilities
 
-public struct WindowTypeRenderer {
+public struct WindowRenderer {
+
+    public let window: Window
     
-    enum Shape {
-        case rectangular
-        case curveTopped
-        case circular
+    public init(window: Window) {
+        self.window = window
     }
     
-    let shape: Shape
-    let hasGlass: Bool
-    let hasCross: Bool
-    let hasFrame: Bool
-    let themeColor: HSBAColor
-    
-    public init(themeColor: HSBAColor) {
-        
-        self.themeColor = themeColor
-        
-        switch Int.random(in: 1...100) {
-        case 1...25:
-            shape = .curveTopped
-        case 26...35:
-            shape = .circular
-        default:
-            shape = .rectangular
-        }
-        
-        hasGlass = Bool.random()
-        hasCross = Bool.random()
-        hasFrame = Bool.random()
-    }
-    
-    public func drawInstance(in rect: CGRect,
-                             with context: CGContext,
-                             saturation: CGFloat,
-                             brightness: CGFloat) {
+    public func draw(in rect: CGRect,
+                     with context: CGContext,
+                     saturation: CGFloat,
+                     brightness: CGFloat) {
         
         context.saveGState()
         
-        var lighterColor = themeColor
+        var lighterColor = window.themeColor
         lighterColor = HSBAColor(hue: lighterColor.hue,
                                  saturation: lighterColor.saturation * 0.25 * saturation,
                                  brightness: lighterColor.brightness * brightness,
@@ -56,21 +27,21 @@ public struct WindowTypeRenderer {
         // Will the lights be on inside?
         let lightInside: Bool = brightness < 0.5
         
-        switch shape {
+        switch window.type.shape {
         case .rectangular:
-            drawRectangular(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
+            drawRectangular(window, in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
             
         case .curveTopped:
-            drawCurveTopped(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
+            drawCurveTopped(window, in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
             
         case .circular:
-            drawCircular(in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
+            drawCircular(window, in: rect, with: context, lighterColor: lighterColor, darkerColor: darkerColor, lightInside: lightInside)
         }
         
         context.restoreGState()
     }
     
-    private func getFillColor(sourceColor: HSBAColor, lightInside: Bool) -> CGColor {
+    private func getFillColor(sourceColor: HSBAColor, lightInside: Bool, hasGlass: Bool) -> CGColor {
         let fillColor: CGColor
         
         if lightInside {
@@ -110,7 +81,8 @@ public struct WindowTypeRenderer {
         context.resetClip()
     }
     
-    private func drawRectangular(in rect: CGRect,
+    private func drawRectangular(_ window: Window,
+                                 in rect: CGRect,
                                  with context: CGContext,
                                  lighterColor: HSBAColor,
                                  darkerColor: HSBAColor,
@@ -119,9 +91,9 @@ public struct WindowTypeRenderer {
         let inset = rect.width * 0.2
         let insetRect = rect.insetBy(dx: inset, dy: inset)
         
-        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside)
+        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside, hasGlass: window.type.hasGlass)
         
-        if hasFrame {
+        if window.type.hasFrame {
             context.setFillColor(CGColor.create(from: darkerColor))
             context.addRect(rect)
             context.fillPath()
@@ -131,12 +103,12 @@ public struct WindowTypeRenderer {
         context.addRect(insetRect)
         context.fillPath()
 
-        if hasGlass {
+        if window.type.hasGlass {
             context.addRect(insetRect)
             drawClippedGlass(in: rect, on: context)
         }
         
-        if hasCross {
+        if window.type.hasCross {
             context.setStrokeColor(CGColor.create(from: darkerColor))
             context.setLineWidth(rect.width/20)
             context.move(to: insetRect.leftEdgeCenter)
@@ -147,7 +119,8 @@ public struct WindowTypeRenderer {
         }
     }
     
-    private func drawCurveTopped(in rect: CGRect,
+    private func drawCurveTopped(_ window: Window,
+                                 in rect: CGRect,
                                  with context: CGContext,
                                  lighterColor: HSBAColor,
                                  darkerColor: HSBAColor,
@@ -158,9 +131,9 @@ public struct WindowTypeRenderer {
         let insetRect = CGRect(origin: CGPoint(x: rect.minX+inset, y: rect.minY+inset),
                                size: CGSize(width: rect.width-(inset*2), height: rect.width-(inset*2)))
         
-        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside)
+        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside, hasGlass: window.type.hasGlass)
 
-        if hasFrame {
+        if window.type.hasFrame {
             context.setFillColor(CGColor.create(from: darkerColor))
             context.addRect(rectangularWindowPart)
             context.addArc(center: rectangularWindowPart.topEdgeCenter,
@@ -180,7 +153,7 @@ public struct WindowTypeRenderer {
                        clockwise: false)
         context.fillPath()
         
-        if hasGlass {
+        if window.type.hasGlass {
             context.addRect(insetRect)
             context.addArc(center: rectangularWindowPart.topEdgeCenter,
                            radius: rect.width/2 - inset,
@@ -190,7 +163,7 @@ public struct WindowTypeRenderer {
             drawClippedGlass(in: rect, on: context)
         }
         
-        if hasCross {
+        if window.type.hasCross {
             context.setStrokeColor(CGColor.create(from: darkerColor))
             context.setLineWidth(rect.width/20)
             context.move(to: insetRect.leftEdgeCenter)
@@ -203,7 +176,8 @@ public struct WindowTypeRenderer {
         }
     }
     
-    private func drawCircular(in rect: CGRect,
+    private func drawCircular(_ window: Window,
+                              in rect: CGRect,
                               with context: CGContext,
                               lighterColor: HSBAColor,
                               darkerColor: HSBAColor,
@@ -212,9 +186,9 @@ public struct WindowTypeRenderer {
         let inset = rect.width * 0.2
         let insetRect = rect.insetBy(dx: inset, dy: inset)
         
-        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside)
+        let fillColor = getFillColor(sourceColor: darkerColor, lightInside: lightInside, hasGlass: window.type.hasGlass)
 
-        if hasFrame {
+        if window.type.hasFrame {
             context.setFillColor(CGColor.create(from: darkerColor))
             context.addEllipse(in: rect)
             context.fillPath()
@@ -224,12 +198,12 @@ public struct WindowTypeRenderer {
         context.addEllipse(in: insetRect)
         context.fillPath()
         
-        if hasGlass {
+        if window.type.hasGlass {
             context.addEllipse(in: insetRect)
             drawClippedGlass(in: rect, on: context)
         }
         
-        if hasCross {
+        if window.type.hasCross {
             context.setStrokeColor(CGColor.create(from: darkerColor))
             context.setLineWidth(rect.width/20)
             context.move(to: insetRect.leftEdgeCenter)
@@ -239,5 +213,4 @@ public struct WindowTypeRenderer {
             context.strokePath()
         }
 
-    }
-}
+    }}

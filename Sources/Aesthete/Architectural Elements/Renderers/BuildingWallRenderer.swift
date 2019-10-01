@@ -1,35 +1,38 @@
-//  Created by B.T. Franklin on 4/28/19
+//  Created by B.T. Franklin on 9/29/19
 
 import CoreGraphics
 import DunesailerUtilities
 
-public struct BuildingWallWithHorizontalDecorationRenderer {
+public struct BuildingWallRenderer {
     
-    public let colorScheme: ColorScheme
-    public let pathCreator: PathCreator
+    public let wall: BuildingWall
     
-    public init(colorScheme: ColorScheme, pathCreator: PathCreator) {
-        self.colorScheme = colorScheme
-        self.pathCreator = pathCreator
+    public init(wall: BuildingWall) {
+        self.wall = wall
     }
     
     public func draw(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
         
         context.saveGState()
         
-        let fillColor = createFillColor(saturation: saturation, brightness: brightness)
+        let fillColor = createFillColor(colorScheme: wall.colorScheme, saturation: saturation, brightness: brightness)
         context.setFillColor(CGColor.create(from: fillColor))
         context.fill(rect)
-
+        
         // Horizontal lines
-        for _ in 1...Int.random(in: 1...10) {
-            drawHorizontalDecoration(in: rect, on: context)
+        if let pathCreator = wall.pathCreator {
+            for _ in 1...Int.random(in: 1...10) {
+                drawHorizontalDecoration(definedBy: pathCreator,
+                                         in: rect,
+                                         on: context,
+                                         using: wall.colorScheme)
+            }
         }
         
         context.restoreGState()
     }
     
-    private func createFillColor(saturation: CGFloat, brightness: CGFloat) -> HSBAColor {
+    private func createFillColor(colorScheme: ColorScheme, saturation: CGFloat, brightness: CGFloat) -> HSBAColor {
         var fillColor = colorScheme.colors[0]
         fillColor = HSBAColor(hue: fillColor.hue,
                               saturation: fillColor.saturation * 0.25 * saturation,
@@ -37,8 +40,8 @@ public struct BuildingWallWithHorizontalDecorationRenderer {
                               alpha: 1.0)
         return fillColor
     }
-    
-    private func drawHorizontalDecoration(in rect: CGRect, on context: CGContext) {
+
+    private func drawHorizontalDecoration(definedBy pathCreator: PathCreator, in rect: CGRect, on context: CGContext, using colorScheme: ColorScheme) {
         
         let mutablePath = CGMutablePath()
         
@@ -65,4 +68,5 @@ public struct BuildingWallWithHorizontalDecorationRenderer {
         context.addPath(mutablePath)
         context.strokePath()
     }
+    
 }
