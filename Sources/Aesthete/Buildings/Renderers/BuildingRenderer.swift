@@ -10,13 +10,13 @@ public struct BuildingRenderer {
         self.building = building
     }
     
-    public func draw(in rect: CGRect, on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
+    public func draw(on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
         
         switch building.type.shape {
         case .commonArch:
-            CommonArchBuildingRenderer(building: building).draw(in: rect, on: context, saturation: saturation, brightness: brightness)
+            CommonArchBuildingRenderer(building: building).draw(on: context, saturation: saturation, brightness: brightness)
         case .commonDome:
-            CommonDomeBuildingRenderer(building: building).draw(in: rect, on: context, saturation: saturation, brightness: brightness)
+            CommonDomeBuildingRenderer(building: building).draw(on: context, saturation: saturation, brightness: brightness)
         }
     }
 }

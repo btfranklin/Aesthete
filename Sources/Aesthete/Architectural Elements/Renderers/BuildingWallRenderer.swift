@@ -7,6 +7,8 @@ public struct BuildingWallRenderer {
     
     public let wall: BuildingWall
     
+    private let saturationAdjustment: CGFloat = 0.8
+    
     public init(wall: BuildingWall) {
         self.wall = wall
     }
@@ -35,7 +37,7 @@ public struct BuildingWallRenderer {
     private func createFillColor(colorScheme: ColorScheme, saturation: CGFloat, brightness: CGFloat) -> HSBAColor {
         var fillColor = colorScheme.colors[0]
         fillColor = HSBAColor(hue: fillColor.hue,
-                              saturation: fillColor.saturation * 0.25 * saturation,
+                              saturation: fillColor.saturation * saturation * saturationAdjustment,
                               brightness: fillColor.brightness * brightness,
                               alpha: 1.0)
         return fillColor

@@ -13,16 +13,13 @@ public struct CommonArchBuildingRenderer {
         self.building = building
     }
 
-    public func draw(in rect: CGRect,
-                     on context: CGContext,
+    public func draw(on context: CGContext,
                      saturation: CGFloat,
                      brightness: CGFloat) {
         
-//        guard rect.width / rect.height == 1 else {
-//            fatalError("Common Arch buildings can only be rendered into square areas.")
-//        }
-        
         context.saveGState()
+        
+        let rect = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         // Create the path of the arch-shaped building outline
         let archPath = CGMutablePath()

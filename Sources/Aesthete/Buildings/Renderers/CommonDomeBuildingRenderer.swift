@@ -18,16 +18,13 @@ public struct CommonDomeBuildingRenderer {
         self.building = building
     }
 
-    public func draw(in rect: CGRect,
-                     on context: CGContext,
+    public func draw(on context: CGContext,
                      saturation: CGFloat,
                      brightness: CGFloat) {
         
-//        guard rect.width / rect.height == 2 else {
-//            fatalError("Common Dome buildings can only be rendered into rectangular areas with width double the height.")
-//        }
-        
         context.saveGState()
+        
+        let rect = CGRect(x: 0, y: 0, width: 200, height: 100)
         
         // Create the path of the dome-shaped building outline
         let domePath = CGMutablePath()
