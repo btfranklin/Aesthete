@@ -11,46 +11,31 @@ public enum Pathlet {
     case quadCurve(to: CGPoint, control: CGPoint)
     case rectangle(_: CGRect)
 
-    public func append(onto path: CGMutablePath, in targetRect: CGRect) {
+    public func append(onto path: CGMutablePath) {
         
         switch self {
         case .arc(let center, let radius, let startAngle, let endAngle, let clockwise):
-            path.addArc(center: CGPoint(x: center.x*targetRect.width + targetRect.minX,
-                                        y: center.y*targetRect.width + targetRect.minY),
-                        radius: CGFloat(radius*targetRect.width),
+            path.addArc(center: center,
+                        radius: radius,
                         startAngle: startAngle,
                         endAngle: endAngle,
                         clockwise: clockwise)
             
         case .ellipse(let rect):
-            path.addEllipse(in: CGRect(x: rect.minX*targetRect.width + targetRect.minX,
-                                       y: rect.minY*targetRect.height + targetRect.minY,
-                                       width: rect.width*targetRect.width,
-                                       height: rect.height*targetRect.height))
+            path.addEllipse(in: rect)
             
         case .line(let endPoint):
-            path.addLine(to: CGPoint(x: endPoint.x*targetRect.width + targetRect.minX,
-                                     y: endPoint.y*targetRect.height + targetRect.minY))
+            path.addLine(to: CGPoint(x: endPoint.x, y: endPoint.y))
             
         case .curve(let endPoint, let control1, let control2):
-            path.addCurve(to: CGPoint(x: endPoint.x*targetRect.width + targetRect.minX,
-                                      y: endPoint.y*targetRect.height + targetRect.minY),
-                          control1: CGPoint(x: control1.x*targetRect.width + targetRect.minX,
-                                            y: control1.y*targetRect.height + targetRect.minY),
-                          control2: CGPoint(x: control2.x*targetRect.width + targetRect.minX,
-                                            y: control2.y*targetRect.height + targetRect.minY))
+            path.addCurve(to: endPoint, control1: control1, control2: control2)
             
         case .quadCurve(let endPoint, let control):
-            path.addQuadCurve(to: CGPoint(x: endPoint.x*targetRect.width + targetRect.minX,
-                                          y: endPoint.y*targetRect.height + targetRect.minY),
-                              control: CGPoint(x: control.x*targetRect.width + targetRect.minX,
-                                               y: control.y*targetRect.height + targetRect.minY))
+            path.addQuadCurve(to: endPoint,
+                              control: control)
             
         case .rectangle(let rect):
-            path.addRect(CGRect(x: rect.minX*targetRect.width + targetRect.minX,
-                                y: rect.minY*targetRect.height + targetRect.minY,
-                                width: rect.width*targetRect.width,
-                                height: rect.height*targetRect.height))
+            path.addRect(rect)
         }
     }
 }

@@ -10,7 +10,7 @@ public struct Triangle {
     public init() {
         
         var vertices = [CGPoint]()
-        vertices.append(CGPoint(x: 0, y: 0))
+        vertices.append(.zero)
         
         vertices.append(CGPoint.random(inX: 0.01...1.0, inY: 0.01...1.0))
         vertices.append(CGPoint.random(inX: 0.01...1.0, inY: 0.01...1.0))

@@ -10,7 +10,7 @@ public struct HorizontalBaseTriangle {
     public init() {
         
         var vertices = [CGPoint]()
-        vertices.append(CGPoint(x: 0, y: 0))
+        vertices.append(.zero)
         vertices.append(CGPoint.random(inX: 0.01...1.0, inY: 0.01...1.0))
         vertices.append(CGPoint(x: 1.0, y: 0))
         
@@ -28,7 +28,7 @@ public struct HorizontalBaseTriangle {
     public init(vertex: CGPoint) {
         
         var vertices = [CGPoint]()
-        vertices.append(CGPoint(x: 0, y: 0))
+        vertices.append(.zero)
         vertices.append(vertex)
         vertices.append(CGPoint(x: 1.0, y: 0))
         

@@ -76,44 +76,32 @@ public struct SymbolicForm {
         self.formlets = formlets
     }
     
-    public func createPath(in rect: CGRect) -> CGPath {
+    public func createPath() -> CGPath {
         
         let path = CGMutablePath()
         
         switch kind {
         case .asymmetrical:
-            let pointTransform = CGAffineTransform.identity
-                .translatedBy(x: rect.midX, y: 0)
-                .scaledBy(x: rect.width, y: rect.height)
-            
-            path.move(to: startPoint.applying(pointTransform))
+            path.move(to: startPoint)
             for formlet in formlets {
-                formlet.render(onto: path, applying: pointTransform)
+                formlet.render(onto: path)
             }
             path.closeSubpath()
             
         case .bilaterallySymmetrical:
-            let pointTransform = CGAffineTransform.identity
-                .translatedBy(x: rect.midX, y: 0)
-                .scaledBy(x: rect.width, y: rect.height)
-            
-            path.move(to: startPoint.applying(pointTransform))
+            path.move(to: startPoint)
             for formlet in formlets {
-                formlet.render(onto: path, applying: pointTransform)
+                formlet.render(onto: path)
             }
             path.closeSubpath()
             
-            path.move(to: startPoint.applying(CGAffineTransform(scaleX: -1, y: 1)).applying(pointTransform))
+            path.move(to: startPoint.applying(CGAffineTransform(scaleX: -1, y: 1)))
             for formlet in formlets {
-                VerticalFormlet(otherSideOf: formlet).render(onto: path, applying: pointTransform)
+                VerticalFormlet(otherSideOf: formlet).render(onto: path)
             }
             path.closeSubpath()
             
         case .radiallySymmetrical(let count):
-            let pointTransform = CGAffineTransform.identity
-                .translatedBy(x: rect.midX, y: rect.midY)
-                .scaledBy(x: rect.width/2, y: rect.height/2)
-
             let radialPath = CGMutablePath()
             for i in 0..<count {
                 let rotationAngle: CGFloat = (.pi*2 / CGFloat(count)) * CGFloat(i)
@@ -129,7 +117,7 @@ public struct SymbolicForm {
                 radialPath.addPath(armPath, transform: rotationTransform)
             }
             
-            path.addPath(radialPath, transform: pointTransform)
+            path.addPath(radialPath)
         }
         
         return path

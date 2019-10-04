@@ -3,5 +3,5 @@
 import CoreGraphics
 
 public protocol PathCreator {
-    func createPath(in rect: CGRect) -> CGPath
+    func createPath() -> CGPath
 }

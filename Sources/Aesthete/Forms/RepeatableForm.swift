@@ -36,12 +36,12 @@ public struct RepeatableForm: PathCreator {
         self.pathlets = pathlets
     }
     
-    public func createPath(in rect: CGRect) -> CGPath {
+    public func createPath() -> CGPath {
         
         let path = CGMutablePath()
-        path.move(to: rect.bottomLeftCorner)
+        path.move(to: .zero)
         for pathlet in pathlets {
-            pathlet.append(onto: path, in: rect)
+            pathlet.append(onto: path)
         }
         return path
     }

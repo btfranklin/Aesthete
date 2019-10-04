@@ -56,15 +56,12 @@ public struct BuildingWallRenderer {
 
         // Rectangles across a single line at random vertical position
         let verticalPosition = CGFloat.random(in: rect.minY...rect.maxY)
-        let formRectangle = CGRect(x: rect.minX,
-                                   y: rect.minY,
-                                   width: formRectWidth,
-                                   height: formRectHeight)
         
         for i in 0..<divisions {
-            let translateTransform = CGAffineTransform(translationX: CGFloat(i) * formRectWidth, y: verticalPosition)
-            let formPath = pathCreator.createPath(in: formRectangle)
-            mutablePath.addPath(formPath, transform: translateTransform)
+            let decorationTransform = CGAffineTransform(translationX: CGFloat(i) * formRectWidth, y: verticalPosition)
+                .scaledBy(x: formRectWidth, y: formRectHeight)
+            let formPath = pathCreator.createPath()
+            mutablePath.addPath(formPath, transform: decorationTransform)
         }
         
         context.addPath(mutablePath)
