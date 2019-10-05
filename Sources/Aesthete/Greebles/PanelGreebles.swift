@@ -2,7 +2,7 @@
 
 import CoreGraphics
 
-public struct PanelGreebles {
+public struct PanelGreebles: Greebles {
     
     let themeColor: HSBAColor
     let complexity: Int
@@ -31,7 +31,7 @@ public struct PanelGreebles {
             
             if showRivets && rect.width > 0.1 && rect.height > 0.1 {
                 context.saveGState()
-                context.setLineDash(phase: 0, lengths: [0.005,0.05])
+                context.setLineDash(phase: 0, lengths: [0.005,0.1])
                 context.setLineWidth(0.005)
                 
                 let insetRect = rect.insetBy(dx: 0.02, dy: 0.02)
