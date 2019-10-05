@@ -15,7 +15,14 @@ public class Building {
         self.storeyCount = storeyCount
         self.pathCreator = pathCreator
         
-        type = BuildingType()
+        switch Int.random(in: 1...100) {
+        case 1...25:
+            type = .commonArch
+        case 26...35:
+            type = .commonDome
+        default:
+            type = .commonDome
+        }
 /*
         guard (1...2).contains(storeyCount) else {
             fatalError("Common Arch buildings can only have 1 or 2 storeys.")

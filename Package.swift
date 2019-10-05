@@ -14,7 +14,7 @@ let package = Package(
             targets: ["Aesthete"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/dunesailer/Utilities.git", from: "0.4.1"),
+        .package(url: "https://github.com/dunesailer/Utilities.git", from: "0.4.2"),
     ],
     targets: [
         .target(

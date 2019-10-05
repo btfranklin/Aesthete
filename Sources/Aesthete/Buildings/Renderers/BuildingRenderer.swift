@@ -12,7 +12,7 @@ public struct BuildingRenderer {
     
     public func draw(on context: CGContext, saturation: CGFloat, brightness: CGFloat) {
         
-        switch building.type.shape {
+        switch building.type {
         case .commonArch:
             CommonArchBuildingRenderer(building: building).draw(on: context, saturation: saturation, brightness: brightness)
         case .commonDome:
