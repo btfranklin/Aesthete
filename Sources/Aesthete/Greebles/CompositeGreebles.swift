@@ -4,7 +4,7 @@ import CoreGraphics
 
 public struct CompositeGreebles: Greebles {
     
-    let greeblesAssortment: [Greebles]
+    public let greeblesAssortment: [Greebles]
     
     public init(greeblesAssortment: [Greebles]) {
         self.greeblesAssortment = greeblesAssortment

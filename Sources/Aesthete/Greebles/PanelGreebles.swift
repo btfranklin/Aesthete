@@ -4,9 +4,9 @@ import CoreGraphics
 
 public struct PanelGreebles: Greebles {
     
-    let themeColor: HSBAColor
-    let complexity: Int
-    let showRivets: Bool
+    public let themeColor: HSBAColor
+    public let complexity: Int
+    public let showRivets: Bool
     
     public init(themeColor: HSBAColor, complexity: Int, showRivets: Bool = false) {
         self.themeColor = themeColor
