@@ -103,12 +103,12 @@ public struct PipeGreebles: Greebles {
     }
     
     public let themeColor: HSBAColor
-    public let complexity: Int
+    public let pipeCount: Int
     public let allowOffSide: Bool
     
-    public init(themeColor: HSBAColor, complexity: Int, allowOffSide: Bool = true) {
+    public init(themeColor: HSBAColor, pipeCount: Int, allowOffSide: Bool = true) {
         self.themeColor = themeColor
-        self.complexity = complexity
+        self.pipeCount = pipeCount
         self.allowOffSide = allowOffSide
     }
     
@@ -117,7 +117,7 @@ public struct PipeGreebles: Greebles {
         context.setAllowsAntialiasing(true)
         
         var pipes = [Pipe]()
-        for _ in 1...complexity {
+        for _ in 1...pipeCount {
             pipes.append(Pipe(allowOffSide: allowOffSide));
         }
         
@@ -155,7 +155,7 @@ public struct PipeGreebles: Greebles {
         }
 
         // Now draw all the actual pipes
-        let themeCGColor = CGColor.create(from: themeColor)
+        let themeCGColor = CGColor.create(from: themeColor.saturationAdjusted(by: 0.1))
         var pipeNumber: CGFloat = 1.0
         for pipe in pipes {
             context.saveGState()

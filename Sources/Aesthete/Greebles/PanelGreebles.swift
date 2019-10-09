@@ -5,12 +5,12 @@ import CoreGraphics
 public struct PanelGreebles: Greebles {
     
     public let themeColor: HSBAColor
-    public let complexity: Int
+    public let panelCount: Int
     public let showRivets: Bool
     
-    public init(themeColor: HSBAColor, complexity: Int, showRivets: Bool = false) {
+    public init(themeColor: HSBAColor, panelCount: Int, showRivets: Bool = false) {
         self.themeColor = themeColor
-        self.complexity = complexity
+        self.panelCount = panelCount
         self.showRivets = showRivets
     }
     
@@ -21,7 +21,7 @@ public struct PanelGreebles: Greebles {
         context.setLineWidth(0.001)
         context.setStrokeColor(.black)
 
-        let rects = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0).randomlyDivided(into: complexity)
+        let rects = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0).randomlyDivided(into: panelCount)
         
         for rect in rects {
             let panelColor = themeColor.saturationAdjusted(by: CGFloat.random(in: -0.1...0.1))
