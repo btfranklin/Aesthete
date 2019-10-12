@@ -87,7 +87,7 @@ public struct HoseGreebles: Greebles {
         }
 
         // Now draw all the actual hoses
-        let hoseColor = CGColor.create(from: themeColor.brightnessAdjusted(by: -0.3))
+        let hoseColor = CGColor.create(from: themeColor.brightnessAdjusted(by: -0.4))
         context.setShadow(offset: CGSize(width: 12, height: -6), blur: 12)
         for hose in hoses {
             context.saveGState()
