@@ -9,13 +9,15 @@ public struct PipeGreebles: Greebles {
         let path: CGPath
         let endPoints: [CGPoint]
         
-        init(allowOffSide: Bool) {
-            let insetRect = CGRect(x: 0.1, y: 0.1, width: 0.8, height: 0.8)
+        init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, allowOffSide: Bool) {
+            let insetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: 0.1, dy: 0.1)
+            let outsetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: -0.3, dy: -0.3)
             var endPoints = [CGPoint]()
             var path: CGMutablePath
 
-            let startingPoint = CGPoint.random(inX: insetRect.minX...insetRect.maxX,
-                                               inY: insetRect.minY...insetRect.maxY)
+            let constrainingRect = allowOffSide ? outsetRect : insetRect
+            let startingPoint = CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
+                                               inY: constrainingRect.minY...constrainingRect.maxY)
             endPoints.append(startingPoint)
             
             var currentPoint: CGPoint
@@ -102,11 +104,15 @@ public struct PipeGreebles: Greebles {
         }
     }
     
+    public let xUnits: CGFloat
+    public let yUnits: CGFloat
     public let themeColor: HSBAColor
     public let pipeCount: Int
     public let allowOffSide: Bool
     
-    public init(themeColor: HSBAColor, pipeCount: Int, allowOffSide: Bool = true) {
+    public init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, themeColor: HSBAColor, pipeCount: Int, allowOffSide: Bool = true) {
+        self.xUnits = xUnits
+        self.yUnits = yUnits
         self.themeColor = themeColor
         self.pipeCount = pipeCount
         self.allowOffSide = allowOffSide
@@ -118,7 +124,7 @@ public struct PipeGreebles: Greebles {
         
         var pipes = [Pipe]()
         for _ in 1...pipeCount {
-            pipes.append(Pipe(allowOffSide: allowOffSide));
+            pipes.append(Pipe(xUnits: xUnits, yUnits: yUnits, allowOffSide: allowOffSide));
         }
         
         // Draw all the endpoints first
