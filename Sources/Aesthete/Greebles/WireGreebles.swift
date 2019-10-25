@@ -37,12 +37,15 @@ public struct WireGreebles: Greebles {
         }
     }
     
+    public let xUnits: CGFloat
+    public let yUnits: CGFloat
     public let wireCount: Int
     public let wireColors: [CGColor]
     public let endPointPairCount: Int
     public let allowOffSide: Bool
 
-    public init(wireCount: Int,
+    public init(xUnits: CGFloat = 1, yUnits: CGFloat = 1,
+                wireCount: Int,
                 wireColors: [CGColor] = [
                     CGColor(red: 0.5, green: 0, blue: 0, alpha: 1), // red
                     CGColor(red: 0, green: 0, blue: 0.5, alpha: 1), // blue
@@ -52,6 +55,8 @@ public struct WireGreebles: Greebles {
                     .black],
                 endPointPairCount: Int = 1,
                 allowOffSide: Bool = true) {
+        self.xUnits = xUnits
+        self.yUnits = yUnits
         self.wireCount = wireCount
         self.wireColors = wireColors
         self.endPointPairCount = endPointPairCount
@@ -63,8 +68,9 @@ public struct WireGreebles: Greebles {
         context.setAllowsAntialiasing(true)
         
         // Generate some pairs of endPointZones for clustering
-        let insetRect = CGRect(x: 0.1, y: 0.1, width: 0.8, height: 0.8)
-        let constrainingRect = allowOffSide ? CGRect(x: -0.3, y: -0.3, width: 1.3, height: 1.3) : insetRect
+        let insetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: 0.1, dy: 0.1)
+        let outsetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: -0.3, dy: -0.3)
+        let constrainingRect = allowOffSide ? outsetRect : insetRect
         var endPointZoneOptions = [(CGPoint,CGPoint)]()
         for _ in 1...endPointPairCount {
             let startingPoint = CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
