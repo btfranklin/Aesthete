@@ -4,10 +4,14 @@ import CoreGraphics
 
 public struct VentGreebles: Greebles {
     
+    public let xUnits: CGFloat
+    public let yUnits: CGFloat
     public let themeColor: HSBAColor
     public let ventCount: Int
     
-    public init(themeColor: HSBAColor, ventCount: Int) {
+    public init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, themeColor: HSBAColor, ventCount: Int) {
+        self.xUnits = xUnits
+        self.yUnits = yUnits
         self.themeColor = themeColor
         self.ventCount = ventCount
     }
@@ -20,8 +24,8 @@ public struct VentGreebles: Greebles {
         var rects = [CGRect]()
         
         for _ in 1...ventCount {
-            rects.append(CGRect(x: CGFloat.random(in: 0.0...0.9),
-                                y: CGFloat.random(in: 0.0...0.9),
+            rects.append(CGRect(x: CGFloat.random(in: 0.0...xUnits - 0.1),
+                                y: CGFloat.random(in: 0.0...yUnits - 0.1),
                                 width: CGFloat.random(in: 0.05...0.3),
                                 height: CGFloat.random(in: 0.05...0.3)))
         }
