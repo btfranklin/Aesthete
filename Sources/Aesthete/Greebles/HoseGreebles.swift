@@ -9,10 +9,10 @@ public struct HoseGreebles: Greebles {
         let path: CGPath
         let endPoints: [CGPoint]
         
-        init(allowOffSide: Bool) {
-            let insetRect = CGRect(x: 0.1, y: 0.1, width: 0.8, height: 0.8)
+        init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, allowOffSide: Bool) {
+            let insetRect = CGRect(x: 0.1, y: 0.1, width: xUnits - 0.2, height: yUnits - 0.2)
             var endPoints = [CGPoint]()
-            let constrainingRect = allowOffSide ? CGRect(x: -0.3, y: -0.3, width: 1.3, height: 1.3) : insetRect
+            let constrainingRect = allowOffSide ? CGRect(x: -0.3, y: -0.3, width: xUnits + 0.6, height: yUnits + 0.6) : insetRect
             let startingPoint = CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
                                                inY: constrainingRect.minY...constrainingRect.maxY)
             endPoints.append(startingPoint)
@@ -22,22 +22,32 @@ public struct HoseGreebles: Greebles {
             
             let path = CGMutablePath()
             path.move(to: startingPoint)
+            
+            let minX = min(startingPoint.x, endingPoint.x)
+            let maxX = max(startingPoint.x, endingPoint.x)
+            let minY = min(startingPoint.y, endingPoint.y)
+            let maxY = max(startingPoint.y, endingPoint.y)
+
             path.addCurve(to: endingPoint,
-                          control1: CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
-                                                   inY: constrainingRect.minY...constrainingRect.maxY),
-                          control2: CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
-                                                   inY: constrainingRect.minY...constrainingRect.maxY))
+                          control1: CGPoint.random(inX: minX...maxX,
+                                                   inY: minY...maxY),
+                          control2: CGPoint.random(inX: minX...maxX,
+                                                   inY: minY...maxY))
             
             self.path = path.copy()!
             self.endPoints = endPoints
         }
     }
     
+    public let xUnits: CGFloat
+    public let yUnits: CGFloat
     public let themeColor: HSBAColor
     public let hoseCount: Int
     public let allowOffSide: Bool
     
-    public init(themeColor: HSBAColor, hoseCount: Int, allowOffSide: Bool = true) {
+    public init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, themeColor: HSBAColor, hoseCount: Int, allowOffSide: Bool = true) {
+        self.xUnits = xUnits
+        self.yUnits = yUnits
         self.themeColor = themeColor
         self.hoseCount = hoseCount
         self.allowOffSide = allowOffSide
@@ -49,7 +59,7 @@ public struct HoseGreebles: Greebles {
         
         var hoses = [Hose]()
         for _ in 1...hoseCount {
-            hoses.append(Hose(allowOffSide: allowOffSide));
+            hoses.append(Hose(xUnits: xUnits, yUnits: yUnits, allowOffSide: allowOffSide));
         }
         
         // Draw all the endpoints first
