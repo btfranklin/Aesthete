@@ -10,9 +10,10 @@ public struct HoseGreebles: Greebles {
         let endPoints: [CGPoint]
         
         init(xUnits: CGFloat = 1, yUnits: CGFloat = 1, allowOffSide: Bool) {
-            let insetRect = CGRect(x: 0.1, y: 0.1, width: xUnits - 0.2, height: yUnits - 0.2)
+            let insetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: 0.1, dy: 0.1)
+            let outsetRect = CGRect(x: 0, y: 0, width: xUnits, height: yUnits).insetBy(dx: -0.3, dy: -0.3)
             var endPoints = [CGPoint]()
-            let constrainingRect = allowOffSide ? CGRect(x: -0.3, y: -0.3, width: xUnits + 0.6, height: yUnits + 0.6) : insetRect
+            let constrainingRect = allowOffSide ? outsetRect : insetRect
             let startingPoint = CGPoint.random(inX: constrainingRect.minX...constrainingRect.maxX,
                                                inY: constrainingRect.minY...constrainingRect.maxY)
             endPoints.append(startingPoint)
