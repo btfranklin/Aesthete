@@ -38,8 +38,8 @@ public struct LightPanelGreebles: Greebles {
         
         for _ in 1...panelCount {
             
-            let columnCount = Int.random(in: 2...5)
-            let rowCount = Int.random(in: 2...5)
+            let columnCount = Int.random(in: 2...8)
+            let rowCount = Int.random(in: 2...8)
 
             let rectWidth = (CGFloat(columnCount) * LightPanelGreebles.LIGHT_SIZE)
                 + (CGFloat(columnCount-1) * LightPanelGreebles.LIGHT_PADDING)
