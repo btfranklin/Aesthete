@@ -2,7 +2,7 @@
 
 import CoreGraphics
 
-public struct RepeatableLinearForm: PathCreator {
+public struct RepeatableLinearForm {
     
     public let pathlets: [Pathlet]
     
