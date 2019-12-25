@@ -120,6 +120,8 @@ public struct HSBAColor {
 
 extension HSBAColor: Hashable {}
 
+extension HSBAColor: Codable {}
+
 extension HSBAColor {
     static public func random(withSaturationRange saturationRange: ClosedRange<CGFloat> = (0.0...1.0),
                               withBrightnessRange brightnessRange: ClosedRange<CGFloat> = (0.0...1.0)) -> HSBAColor {
