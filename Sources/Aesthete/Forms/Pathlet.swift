@@ -11,7 +11,7 @@ public enum Pathlet {
     case curve(to: CGPoint, control1: CGPoint, control2: CGPoint)
     case quadCurve(to: CGPoint, control: CGPoint)
     case rectangle(_: CGRect)
-    case path(_: AEPath, at: CGPoint)
+    case path(_: CompositePath, at: CGPoint)
     case move(to: CGPoint)
 
     public func append(onto path: CGMutablePath) {

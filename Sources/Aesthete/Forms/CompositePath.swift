@@ -3,7 +3,7 @@
 import CoreGraphics
 import SwiftUI
 
-public struct AEPath {
+public struct CompositePath {
     
     public let pathlets: [Pathlet]
     
