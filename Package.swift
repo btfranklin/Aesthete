@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -14,12 +14,12 @@ let package = Package(
             targets: ["Aesthete"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/dunesailer/Utilities.git", from: "0.8.0"),
+        .package(name: "Dunesailer Utilities", url: "https://github.com/dunesailer/Utilities.git", from: "0.8.0"),
     ],
     targets: [
         .target(
             name: "Aesthete",
-            dependencies: ["DunesailerUtilities"]),
+            dependencies: [.product(name: "DunesailerUtilities", package: "Dunesailer Utilities")]),
         .testTarget(
             name: "AestheteTests",
             dependencies: ["Aesthete"]),
