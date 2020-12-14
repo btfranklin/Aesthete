@@ -5,6 +5,11 @@
 #elseif os(macOS)
     import AppKit
 #endif
+
+#if canImport(SwiftUI)
+    import SwiftUI
+#endif
+
 import CoreGraphics
 
 public struct HSBAColor {
@@ -134,7 +139,7 @@ extension HSBAColor {
 
 extension CGColor {
     static public func create(from hsbaColor: HSBAColor) -> CGColor {
-        #if os(iOS)
+        #if canImport(UIKit)
             let uiColor = UIColor(hsbaColor: hsbaColor)
             return uiColor.cgColor
         #elseif os(macOS)
@@ -146,7 +151,7 @@ extension CGColor {
     }
     
     public var hsbaColor: HSBAColor {
-        #if os(iOS)
+        #if canImport(UIKit)
             let uiColor = UIColor(cgColor: self)
             return uiColor.hsbaColor
         #elseif os(macOS)
@@ -159,7 +164,7 @@ extension CGColor {
     
 }
 
-#if os(iOS)
+#if canImport(UIKit)
     extension UIColor {
         public convenience init(hsbaColor: HSBAColor) {
             self.init(hue: hsbaColor.hue, saturation: hsbaColor.saturation, brightness: hsbaColor.brightness, alpha: hsbaColor.alpha)
@@ -195,7 +200,21 @@ extension CGColor {
                 alpha: alphaComponent)
         }
     }
-    
 #endif
 
+#if canImport(SwiftUI)
+    extension Color {
+        public init(hsbaColor: HSBAColor) {
+            self.init(hue: Double(hsbaColor.hue),
+                      saturation: Double(hsbaColor.saturation),
+                      brightness: Double(hsbaColor.brightness),
+                      opacity: Double(hsbaColor.alpha))
+        }
+
+        @available(OSX 11, *)
+        public var hsbaColor: HSBAColor {
+            return self.cgColor?.hsbaColor ?? HSBAColor(hue: 0, saturation: 0, brightness: 0, alpha: 0)
+        }
+    }
+#endif
 
