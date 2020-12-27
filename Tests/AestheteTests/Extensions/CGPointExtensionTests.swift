@@ -1,8 +1,7 @@
 //  Created by B.T. Franklin on 12/27/20.
 
-import Foundation
-
 import XCTest
+import CoreGraphics
 @testable import Aesthete
 
 class CGPointExtensionTests: XCTestCase {
