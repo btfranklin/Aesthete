@@ -2,11 +2,14 @@
 
 import CoreGraphics
 
-public struct Triangle {
+public struct Triangle: Codable {
     
     public let vertices: [CGPoint]
-    public let path: CGPath
-    
+
+    public lazy var path: CGPath = {
+        Triangle.createPath(from: self.vertices)
+    }()
+
     public init() {
         
         var vertices = [CGPoint]()
@@ -16,12 +19,10 @@ public struct Triangle {
         vertices.append(CGPoint.random(inX: 0.01...1.0, inY: 0.01...1.0))
         
         self.vertices = Triangle.convertToClockwiseWinding(vertices)
-        self.path = Triangle.createPath(from: vertices)
     }
     
     public init(vertices: [CGPoint]) {
         self.vertices = Triangle.convertToClockwiseWinding(vertices)
-        self.path = Triangle.createPath(from: vertices)
     }
     
     private static func convertToClockwiseWinding(_ vertices: [CGPoint]) -> [CGPoint] {

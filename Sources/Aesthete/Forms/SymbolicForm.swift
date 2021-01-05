@@ -1,21 +1,107 @@
 //  Created by B.T. Franklin on 4/7/19
 
+import Foundation
 import CoreGraphics
 import DunesailerUtilities
 
-public struct SymbolicForm {
+public struct SymbolicForm: Codable {
     
-    public enum Kind {
+    public enum Kind: Codable {
         case asymmetrical
         case bilaterallySymmetrical
         case radiallySymmetrical(count: Int)
+
+        enum Key: CodingKey {
+            case symbolicFormKind
+            case count
+        }
+
+        enum CodingError: Error {
+            case unknownValue
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: Key.self)
+            let symbolicFormKind = try container.decode(String.self, forKey: .symbolicFormKind)
+            switch symbolicFormKind {
+            case "asymmetrical":
+                self = .asymmetrical
+            case "bilaterallySymmetrical":
+                self = .bilaterallySymmetrical
+            case "radiallySymmetrical":
+                let count = try container.decodeIfPresent(Int.self, forKey: .count)
+                self = .radiallySymmetrical(count: count!)
+            default:
+                throw CodingError.unknownValue
+            }
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: Key.self)
+            switch self {
+
+            case .asymmetrical:
+                try container.encode("asymmetrical", forKey: .symbolicFormKind)
+
+            case .bilaterallySymmetrical:
+                try container.encode("bilaterallySymmetrical", forKey: .symbolicFormKind)
+
+            case .radiallySymmetrical(let count):
+                try container.encode("radiallySymmetrical", forKey: .symbolicFormKind)
+                try container.encode(count, forKey: .count)
+            }
+        }
+
     }
     
-    public struct VerticalFormlet {
+    public struct VerticalFormlet: Codable {
         
-        public enum Kind {
+        public enum Kind: Codable {
             case line(to: CGPoint)
             case curve(to: CGPoint, control1: CGPoint, control2: CGPoint)
+
+            enum Key: CodingKey {
+                case verticalFormletKind
+                case toPoint
+                case controlPoint1
+                case controlPoint2
+            }
+
+            enum CodingError: Error {
+                case unknownValue
+            }
+
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: Key.self)
+                let verticalFormletKind = try container.decode(String.self, forKey: .verticalFormletKind)
+                switch verticalFormletKind {
+                case "line":
+                    let toPoint = try container.decodeIfPresent(CGPoint.self, forKey: .toPoint)
+                    self = .line(to: toPoint!)
+                case "curve":
+                    let toPoint = try container.decodeIfPresent(CGPoint.self, forKey: .toPoint)
+                    let controlPoint1 = try container.decodeIfPresent(CGPoint.self, forKey: .controlPoint1)
+                    let controlPoint2 = try container.decodeIfPresent(CGPoint.self, forKey: .controlPoint2)
+                    self = .curve(to: toPoint!, control1: controlPoint1!, control2: controlPoint2!)
+                default:
+                    throw CodingError.unknownValue
+                }
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: Key.self)
+                switch self {
+                case .line(let toPoint):
+                    try container.encode("line", forKey: .verticalFormletKind)
+                    try container.encode(toPoint, forKey: .toPoint)
+
+                case .curve(let toPoint, let controlPoint1, let controlPoint2):
+                    try container.encode("curve", forKey: .verticalFormletKind)
+                    try container.encode(toPoint, forKey: .toPoint)
+                    try container.encode(controlPoint1, forKey: .controlPoint1)
+                    try container.encode(controlPoint2, forKey: .controlPoint2)
+                }
+            }
         }
         
         public let kind: Kind

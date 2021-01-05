@@ -2,7 +2,7 @@
 
 import CoreGraphics
 
-public struct RepeatableLinearForm {
+public struct RepeatableLinearForm: Codable {
     
     public let pathlets: [Pathlet]
     

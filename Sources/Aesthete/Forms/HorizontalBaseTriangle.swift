@@ -2,11 +2,14 @@
 
 import CoreGraphics
 
-public struct HorizontalBaseTriangle {
+public struct HorizontalBaseTriangle: Codable {
     
     public let vertices: [CGPoint]
-    public let path: CGPath
-    
+
+    public lazy var path: CGPath = {
+        HorizontalBaseTriangle.createPath(from: self.vertices)
+    }()
+
     public init() {
         
         var vertices = [CGPoint]()
@@ -21,8 +24,6 @@ public struct HorizontalBaseTriangle {
         path.addLine(to: vertices[1])
         path.addLine(to: vertices[2])
         path.closeSubpath()
-        
-        self.path = HorizontalBaseTriangle.createPath(from: vertices)
     }
     
     public init(vertex: CGPoint) {
@@ -33,7 +34,6 @@ public struct HorizontalBaseTriangle {
         vertices.append(CGPoint(x: 1.0, y: 0))
         
         self.vertices = vertices
-        self.path = HorizontalBaseTriangle.createPath(from: vertices)
     }
     
     private static func createPath(from vertices: [CGPoint]) -> CGPath {

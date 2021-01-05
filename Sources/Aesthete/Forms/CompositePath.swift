@@ -3,7 +3,7 @@
 import CoreGraphics
 import SwiftUI
 
-public struct CompositePath {
+public struct CompositePath: Codable {
     
     public let pathlets: [Pathlet]
     
