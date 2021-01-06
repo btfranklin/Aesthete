@@ -14,9 +14,9 @@ public enum Pathlet {
     case path(_: CompositePath, at: CGPoint)
     case move(to: CGPoint)
 
-    public func append(onto path: CGMutablePath) {
+    public func append(onto path: CGMutablePath, usingRelativePositioning: Bool = true) {
 
-        let penTranslation = CGAffineTransform(translationX: path.currentPoint.x, y: path.currentPoint.y)
+        let penTranslation = usingRelativePositioning ? CGAffineTransform(translationX: path.currentPoint.x, y: path.currentPoint.y) : .identity
         
         switch self {
         case .arc(let center, let radius, let startAngle, let endAngle, let clockwise):
@@ -54,10 +54,11 @@ public enum Pathlet {
         }
     }
     
-    public func append(onto path: inout Path, scaledBy scale: CGFloat = 1.0) {
+    public func append(onto path: inout Path, scaledBy scale: CGFloat = 1.0, usingRelativePositioning: Bool = true) {
 
-        let penTransform = CGAffineTransform(translationX: path.currentPoint!.x, y: path.currentPoint!.y).scaledBy(x: scale, y: scale)
-        
+        let translation = usingRelativePositioning ? CGAffineTransform(translationX: path.currentPoint!.x, y: path.currentPoint!.y) : .identity
+        let penTransform = translation.scaledBy(x: scale, y: scale)
+
         switch self {
         case .arc(let center, let radius, let startAngle, let endAngle, let clockwise):
             path.addArc(center: center.applying(penTransform),
