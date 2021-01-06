@@ -11,20 +11,20 @@ public struct CompositePath: Codable {
         self.pathlets = pathlets
     }
     
-    public func createCGPath() -> CGPath {
+    public func createCGPath(usingRelativePositioning useRelativePositioning: Bool = true) -> CGPath {
         let cgPath = CGMutablePath()
         cgPath.move(to: .zero)
         for pathlet in pathlets {
-            pathlet.append(onto: cgPath)
+            pathlet.append(onto: cgPath, usingRelativePositioning: useRelativePositioning)
         }
         return cgPath
     }
     
-    public func createSwiftUIPath(scaledBy scale: CGFloat = 1.0) -> Path {
+    public func createSwiftUIPath(scaledBy scale: CGFloat = 1.0, usingRelativePositioning useRelativePositioning: Bool = true) -> Path {
         var path = Path()
         path.move(to: .zero)
         for pathlet in pathlets {
-            pathlet.append(onto: &path, scaledBy: scale)
+            pathlet.append(onto: &path, scaledBy: scale, usingRelativePositioning: useRelativePositioning)
         }
         return path
     }
