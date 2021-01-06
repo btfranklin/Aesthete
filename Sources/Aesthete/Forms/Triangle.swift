@@ -21,7 +21,8 @@ public struct Triangle: Codable {
         self.vertices = Triangle.convertToClockwiseWinding(vertices)
     }
     
-    public init(vertices: [CGPoint]) {
+    public init(vertex1: CGPoint, vertex2: CGPoint) {
+        let vertices = [.zero, vertex1, vertex2]
         self.vertices = Triangle.convertToClockwiseWinding(vertices)
     }
     
