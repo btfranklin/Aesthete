@@ -35,7 +35,7 @@ public struct RepeatableForm: Codable {
         
         self.pathlets = pathlets
     }
-    
+
     public func createPath() -> CGPath {
         
         let path = CGMutablePath()
