@@ -3,6 +3,7 @@
 import CoreGraphics
 import SwiftUI
 
+/// A single element of a path that can be combined with others to make a complex resulting path.
 public enum Pathlet {
 
     case arc(center: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat, clockwise: Bool)
@@ -14,6 +15,11 @@ public enum Pathlet {
     case path(_: CompositePath, at: CGPoint)
     case move(to: CGPoint)
 
+    /// Appends the path element represented by this Pathlet onto the provided mutable path.
+    ///
+    /// - Parameters:
+    ///   - path: the path onto which to append
+    ///   - useRelativePositioning: true if the appended element should be positioned relative to the current endpoint of the path, false if not
     public func append(onto path: CGMutablePath,
                        usingRelativePositioning useRelativePositioning: Bool = true) {
 
@@ -57,6 +63,12 @@ public enum Pathlet {
         }
     }
 
+    /// Appends the path element represented by this Pathlet onto the provided SwiftUI Path.
+    ///
+    /// - Parameters:
+    ///   - path: the Path onto which to append
+    ///   - scale: the amount by which to scale the element before appending it
+    ///   - useRelativePositioning: true if the appended element should be positioned relative to the current endpoint of the path, false if not
     public func append(onto path: inout Path,
                        scaledBy scale: CGFloat = 1.0,
                        usingRelativePositioning useRelativePositioning: Bool = true) {
