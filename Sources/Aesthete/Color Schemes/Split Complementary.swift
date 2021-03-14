@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct SplitComplementaryColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor, spacing: CGFloat = 0.05) {
-        
+extension ColorScheme {
+
+    public static func createSplitComplementary(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -24,9 +20,7 @@ public struct SplitComplementaryColorScheme: ColorScheme {
         colors.append(themeColor
             .complement().hueAdjusted(by: -spacing))
         
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension SplitComplementaryColorScheme: Hashable {}

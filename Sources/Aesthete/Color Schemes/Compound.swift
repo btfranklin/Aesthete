@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct CompoundColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor) {
-        
+extension ColorScheme {
+
+    public static func createCompound(basedOn themeColor: HSBAColor) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -29,10 +25,7 @@ public struct CompoundColorScheme: ColorScheme {
             .hueAdjusted(by: -0.1).complement()
             .saturationAdjusted(by: 0.10, ceilingAt: 0.90).brightnessAdjusted(by: -0.20, floorAt: 0.20))
 
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension CompoundColorScheme: Hashable {}
-

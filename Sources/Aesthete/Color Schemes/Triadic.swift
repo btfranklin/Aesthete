@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct TriadicColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor) {
-        
+extension ColorScheme {
+
+    public static func createTriadic(basedOn themeColor: HSBAColor) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -20,9 +16,7 @@ public struct TriadicColorScheme: ColorScheme {
         colors.append(themeColor.hueAdjusted(by: 0.66).saturationAdjusted(by: -0.10).brightnessAdjusted(by: -0.20))
         colors.append(themeColor.hueAdjusted(by: 0.66).saturationAdjusted(by: -0.05).brightnessAdjusted(by: -0.30, floorAt: 0.40, withOverflow: true))
 
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension TriadicColorScheme: Hashable {}

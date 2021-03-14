@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct ComplementaryColorScheme: ColorScheme {
+extension ColorScheme {
 
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor) {
-        
+    public static func createComplementary(basedOn themeColor: HSBAColor) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -23,9 +19,7 @@ public struct ComplementaryColorScheme: ColorScheme {
         colors.append(themeColor
             .complement())
         
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension ComplementaryColorScheme: Hashable {}

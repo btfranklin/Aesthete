@@ -10,8 +10,8 @@ class SplitComplementaryColorSchemeTests: XCTestCase {
                                            saturation: CGFloat(0.8),
                                            brightness: CGFloat(0.8),
                                            alpha: CGFloat(1.0))
-        let testColorScheme = SplitComplementaryColorScheme(themeColor: testThemeHSBAColor)
-        
+        let testColorScheme = ColorScheme.createSplitComplementary(basedOn: testThemeHSBAColor)
+
         XCTAssertEqual(5, testColorScheme.colors.count)
         XCTAssertEqual(testThemeHSBAColor, testColorScheme.themeColor)
     }
@@ -23,8 +23,8 @@ class SplitComplementaryColorSchemeTests: XCTestCase {
                                      brightness: CGFloat(0.8),
                                      alpha: CGFloat(1.0))
         
-        let testColorScheme = SplitComplementaryColorScheme(themeColor: testThemeColor.hsbaColor)
-        
+        let testColorScheme = ColorScheme.createSplitComplementary(basedOn: testThemeColor.hsbaColor)
+
         let testColors = testColorScheme.colors.map {NSColor(hsbaColor: $0)}
         XCTAssertEqual(5, testColors.count)
         

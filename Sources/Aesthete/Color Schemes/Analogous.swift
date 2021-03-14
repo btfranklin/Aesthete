@@ -2,13 +2,9 @@
 
 import CoreGraphics
 
-public struct AnalogousColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor, spacing: CGFloat = 0.05) {
+extension ColorScheme {
+
+    public static func createAnalogous(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
         
         guard (0.0..<0.2).contains(spacing) else {
             fatalError("Spacing must be between 0 and 0.2")
@@ -26,11 +22,7 @@ public struct AnalogousColorScheme: ColorScheme {
         colors.append(themeColor
             .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: -(spacing*2)).brightnessAdjusted(by: 0, floorAt: 0.20))
 
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension AnalogousColorScheme: Hashable {}
-
-

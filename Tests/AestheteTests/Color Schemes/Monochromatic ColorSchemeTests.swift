@@ -1,16 +1,16 @@
-//  Created by B.T. Franklin on 8/25/17.
+//  Created by B.T. Franklin on 9/2/17.
 
 import XCTest
 @testable import Aesthete
 
-class ComplementaryColorSchemeTests: XCTestCase {
+class MonochromaticColorSchemeTests: XCTestCase {
 
     func testHSBAInitializer() {
         let testThemeHSBAColor = HSBAColor(hue: CGFloat(0.99),
-                                            saturation: CGFloat(0.8),
-                                            brightness: CGFloat(0.8),
-                                            alpha: CGFloat(1.0))
-        let testColorScheme = ComplementaryColorScheme(themeColor: testThemeHSBAColor)
+                                           saturation: CGFloat(0.8),
+                                           brightness: CGFloat(0.8),
+                                           alpha: CGFloat(1.0))
+        let testColorScheme = ColorScheme.createMonochromatic(basedOn: testThemeHSBAColor)
         
         XCTAssertEqual(5, testColorScheme.colors.count)
         XCTAssertEqual(testThemeHSBAColor, testColorScheme.themeColor)
@@ -23,35 +23,36 @@ class ComplementaryColorSchemeTests: XCTestCase {
                                      brightness: CGFloat(0.8),
                                      alpha: CGFloat(1.0))
         
-        let testColorScheme = ComplementaryColorScheme(themeColor: testThemeColor.hsbaColor)
+        let testColorScheme = ColorScheme.createMonochromatic(basedOn: testThemeColor.hsbaColor)
         
         let testColors = testColorScheme.colors.map {NSColor(hsbaColor: $0)}
         XCTAssertEqual(5, testColors.count)
-
+        
         XCTAssertEqual(0.99, testColors[0].hueComponent, accuracy: 0.00001)
         XCTAssertEqual(0.80, testColors[0].saturationComponent, accuracy: 0.00001)
         XCTAssertEqual(0.80, testColors[0].brightnessComponent, accuracy: 0.00001)
         XCTAssertEqual(1.00, testColors[0].alphaComponent, accuracy: 0.00001)
-
+        
         XCTAssertEqual(0.99, testColors[1].hueComponent, accuracy: 0.00001)
-        XCTAssertEqual(0.90, testColors[1].saturationComponent, accuracy: 0.00001)
-        XCTAssertEqual(0.50, testColors[1].brightnessComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.80, testColors[1].saturationComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.30, testColors[1].brightnessComponent, accuracy: 0.00001)
         XCTAssertEqual(1.00, testColors[1].alphaComponent, accuracy: 0.00001)
         
         XCTAssertEqual(0.99, testColors[2].hueComponent, accuracy: 0.00001)
-        XCTAssertEqual(0.70, testColors[2].saturationComponent, accuracy: 0.00001)
-        XCTAssertEqual(1.00, testColors[2].brightnessComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.50, testColors[2].saturationComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.80, testColors[2].brightnessComponent, accuracy: 0.00001)
         XCTAssertEqual(1.00, testColors[2].alphaComponent, accuracy: 0.00001)
         
-        XCTAssertEqual(0.49, testColors[3].hueComponent, accuracy: 0.00001)
-        XCTAssertEqual(1.00, testColors[3].saturationComponent, accuracy: 0.00001)
-        XCTAssertEqual(0.50, testColors[3].brightnessComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.99, testColors[3].hueComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.50, testColors[3].saturationComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.30, testColors[3].brightnessComponent, accuracy: 0.00001)
         XCTAssertEqual(1.00, testColors[3].alphaComponent, accuracy: 0.00001)
-
-        XCTAssertEqual(0.49, testColors[4].hueComponent, accuracy: 0.00001)
+        
+        XCTAssertEqual(0.99, testColors[4].hueComponent, accuracy: 0.00001)
         XCTAssertEqual(0.80, testColors[4].saturationComponent, accuracy: 0.00001)
-        XCTAssertEqual(0.80, testColors[4].brightnessComponent, accuracy: 0.00001)
+        XCTAssertEqual(0.60, testColors[4].brightnessComponent, accuracy: 0.00001)
         XCTAssertEqual(1.00, testColors[4].alphaComponent, accuracy: 0.00001)
     }
     #endif
+    
 }

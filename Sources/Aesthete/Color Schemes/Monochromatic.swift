@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct MonochromaticColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor) {
-        
+extension ColorScheme {
+
+    public static func createMonochromatic(basedOn themeColor: HSBAColor) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -18,10 +14,7 @@ public struct MonochromaticColorScheme: ColorScheme {
         colors.append(themeColor.brightnessAdjusted(by: -0.50, floorAt: 0.20, withOverflow: true).saturationAdjusted(by: -0.3, floorAt: 0.10, ceilingAt: 0.70, withOverflow: true))
         colors.append(themeColor.brightnessAdjusted(by: -0.20, floorAt: 0.20, withOverflow: true))
         
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension MonochromaticColorScheme: Hashable {}
-

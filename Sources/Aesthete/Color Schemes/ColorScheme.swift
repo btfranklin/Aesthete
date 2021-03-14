@@ -1,12 +1,13 @@
 //  Created by B.T. Franklin on 8/27/17.
 
-public protocol ColorScheme: Codable {
-    var colors: [HSBAColor] { get }
-}
+public struct ColorScheme: Codable, Hashable {
+    public let colors: [HSBAColor]
 
-extension ColorScheme {
-    var themeColor: HSBAColor {
+    public var themeColor: HSBAColor {
         return colors[0]
     }
-}
 
+    init(using colors: [HSBAColor]) {
+        self.colors = colors
+    }
+}

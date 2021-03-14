@@ -12,7 +12,7 @@
 
 import CoreGraphics
 
-public struct HSBAColor {
+public struct HSBAColor: Codable, Hashable {
     public let hue: CGFloat
     public let saturation: CGFloat
     public let brightness: CGFloat
@@ -122,10 +122,6 @@ public struct HSBAColor {
     }
     
 }
-
-extension HSBAColor: Hashable {}
-
-extension HSBAColor: Codable {}
 
 extension HSBAColor {
     static public func random(withSaturationRange saturationRange: ClosedRange<CGFloat> = (0.0...1.0),

@@ -2,16 +2,10 @@
 
 import CoreGraphics
 
-public struct AccentedAnalogousColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    public let leftAccentColorIndex: Int
-    public let rightAccentColorIndex: Int
+extension ColorScheme {
 
-    // MARK: Initializers
-    public init(themeColor: HSBAColor, spacing: CGFloat = 0.05) {
-        
+    public static func createAccentedAnalogous(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
+
         guard (0.0..<0.2).contains(spacing) else {
             fatalError("Spacing must be between 0 and 0.2")
         }
@@ -27,14 +21,10 @@ public struct AccentedAnalogousColorScheme: ColorScheme {
         // Accent colors
         colors.append(themeColor
             .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: spacing*2).complement().brightnessAdjusted(by: 0, floorAt: 0.20))
-        leftAccentColorIndex = colors.count
         colors.append(themeColor
             .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: -(spacing*2)).complement().brightnessAdjusted(by: 0, floorAt: 0.20))
-        rightAccentColorIndex = colors.count
 
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension AccentedAnalogousColorScheme: Hashable {}

@@ -10,7 +10,7 @@ class TriadicColorSchemeTests: XCTestCase {
                                            saturation: CGFloat(0.8),
                                            brightness: CGFloat(0.8),
                                            alpha: CGFloat(1.0))
-        let testColorScheme = TriadicColorScheme(themeColor: testThemeHSBAColor)
+        let testColorScheme = ColorScheme.createTriadic(basedOn: testThemeHSBAColor)
         
         XCTAssertEqual(5, testColorScheme.colors.count)
         XCTAssertEqual(testThemeHSBAColor, testColorScheme.themeColor)
@@ -23,7 +23,7 @@ class TriadicColorSchemeTests: XCTestCase {
                                      brightness: CGFloat(0.8),
                                      alpha: CGFloat(1.0))
         
-        let testColorScheme = TriadicColorScheme(themeColor: testThemeColor.hsbaColor)
+        let testColorScheme = ColorScheme.createTriadic(basedOn: testThemeColor.hsbaColor)
         
         let testColors = testColorScheme.colors.map {NSColor(hsbaColor: $0)}
         XCTAssertEqual(5, testColors.count)

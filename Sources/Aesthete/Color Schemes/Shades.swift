@@ -2,14 +2,10 @@
 
 import CoreGraphics
 
-public struct ShadesColorScheme: ColorScheme {
-    
-    // MARK: Constants
-    public let colors: [HSBAColor]
-    
-    // MARK: Initializers
-    public init(themeColor: HSBAColor) {
-        
+extension ColorScheme {
+
+    public static func createShades(basedOn themeColor: HSBAColor) -> ColorScheme {
+
         var colors = [HSBAColor]()
         
         colors.append(themeColor)
@@ -18,10 +14,7 @@ public struct ShadesColorScheme: ColorScheme {
         colors.append(themeColor.brightnessAdjusted(by: -0.75, floorAt: 0.20, withOverflow: true))
         colors.append(themeColor.brightnessAdjusted(by: -0.10, floorAt: 0.20))
         
-        self.colors = colors
+        return ColorScheme(using: colors)
     }
     
 }
-
-extension ShadesColorScheme: Hashable {}
-
