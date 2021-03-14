@@ -15,7 +15,7 @@ The Aesthete package is a standard Swift package, and can easily be added to you
 To include Aesthete in another Swift Package Manager package, add it to the `dependencies` attribute defined in your `Package.swift` file. You can select the version using the `from` parameter. For example:
 ```
 dependencies: [
-    .package(url: "https://github.com/dunesailer/Aesthete.git", from: "0.4.0")
+    .package(url: "https://github.com/dunesailer/Aesthete.git", from: "0.7.0")
 ]
 ```
 
