@@ -11,8 +11,8 @@ extension CGRect {
             fatalError("CGRect cannot be divided into fewer than 2 subrectangles")
         }
         
-        var rects = [CGRect]()
-        var selfSplitRects = [CGRect]()
+        var rects: [CGRect] = []
+        var selfSplitRects: [CGRect] = []
         if width > height {
             let divisionPoint = minX + (CGFloat.randomGaussian(withStandardDeviation: 0.3, withMean: 0.5, withMaximum: 1.0, withMinimum: 0.0) * width)
             selfSplitRects.append(CGRect(x: minX, y: minY, width: divisionPoint - minX, height: height))

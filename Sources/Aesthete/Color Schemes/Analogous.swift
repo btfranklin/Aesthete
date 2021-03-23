@@ -10,8 +10,8 @@ extension ColorScheme {
             fatalError("Spacing must be between 0 and 0.2")
         }
         
-        var colors = [HSBAColor]()
-        
+        var colors: [HSBAColor] = []
+
         colors.append(themeColor)
         colors.append(themeColor
             .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: spacing).brightnessAdjusted(by: -0.05, floorAt: 0.20))

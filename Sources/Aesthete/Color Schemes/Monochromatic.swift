@@ -6,8 +6,8 @@ extension ColorScheme {
 
     public static func createMonochromatic(basedOn themeColor: HSBAColor) -> ColorScheme {
 
-        var colors = [HSBAColor]()
-        
+        var colors: [HSBAColor] = []
+
         colors.append(themeColor)
         colors.append(themeColor.brightnessAdjusted(by: -0.50, floorAt: 0.20, withOverflow: true))
         colors.append(themeColor.saturationAdjusted(by: -0.30, floorAt: 0.10, ceilingAt: 0.70, withOverflow: true))

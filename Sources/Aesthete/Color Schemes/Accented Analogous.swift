@@ -10,7 +10,7 @@ extension ColorScheme {
             fatalError("Spacing must be between 0 and 0.2")
         }
         
-        var colors = [HSBAColor]()
+        var colors: [HSBAColor] = []
         
         colors.append(themeColor)
         colors.append(themeColor

@@ -12,7 +12,7 @@ public struct Triangle: Codable {
 
     public init() {
         
-        var vertices = [CGPoint]()
+        var vertices: [CGPoint] = []
         vertices.append(.zero)
         
         vertices.append(CGPoint.random(inX: 0.01...1.0, inY: 0.01...1.0))

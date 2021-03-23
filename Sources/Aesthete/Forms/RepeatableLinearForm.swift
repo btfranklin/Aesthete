@@ -14,7 +14,7 @@ public struct RepeatableLinearForm: Codable {
         
         let pathletWidth = 1.0 / CGFloat(complexity)
         
-        var pathlets = [Pathlet]()
+        var pathlets: [Pathlet] = []
         for currentX in stride(from: pathletWidth, through: CGFloat(1), by: pathletWidth) {
             
             let endPointY: CGFloat

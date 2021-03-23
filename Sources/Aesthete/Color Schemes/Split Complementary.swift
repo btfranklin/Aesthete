@@ -6,8 +6,8 @@ extension ColorScheme {
 
     public static func createSplitComplementary(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
 
-        var colors = [HSBAColor]()
-        
+        var colors: [HSBAColor] = []
+
         colors.append(themeColor)
 
         colors.append(themeColor

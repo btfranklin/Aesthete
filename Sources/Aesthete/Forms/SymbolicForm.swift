@@ -155,7 +155,7 @@ public struct SymbolicForm: Codable {
         self.kind = kind
         self.startPoint = CGPoint.random(inX: -0.5...0.5, inY: 0...1.0)
         
-        var formlets = [VerticalFormlet]()
+        var formlets: [VerticalFormlet] = []
         for _ in 1...complexity {
             formlets.append(VerticalFormlet())
         }

@@ -6,8 +6,8 @@ extension ColorScheme {
 
     public static func createCompound(basedOn themeColor: HSBAColor) -> ColorScheme {
 
-        var colors = [HSBAColor]()
-        
+        var colors: [HSBAColor] = []
+
         colors.append(themeColor)
         
         colors.append(themeColor

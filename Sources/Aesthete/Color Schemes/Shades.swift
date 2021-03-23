@@ -6,8 +6,8 @@ extension ColorScheme {
 
     public static func createShades(basedOn themeColor: HSBAColor) -> ColorScheme {
 
-        var colors = [HSBAColor]()
-        
+        var colors: [HSBAColor] = []
+
         colors.append(themeColor)
         colors.append(themeColor.brightnessAdjusted(by: -0.25, floorAt: 0.20, withOverflow: true))
         colors.append(themeColor.brightnessAdjusted(by: -0.50, floorAt: 0.20, withOverflow: true))

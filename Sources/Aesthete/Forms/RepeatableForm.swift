@@ -12,7 +12,7 @@ public struct RepeatableForm: Codable {
             fatalError("Complexity must be greater than 1.")
         }
         
-        var pathlets = [Pathlet]()
+        var pathlets: [Pathlet] = []
         for _ in 1...complexity {
             
             let endPointY = CGFloat.random(in: 0.1...1.0)
