@@ -51,17 +51,17 @@ class HSBAColorTests: XCTestCase {
         let hsbaColor = HSBAColor(hue: testHue, saturation: testSaturation, brightness: testBrightness, alpha: testAlpha)
         
         let wrappingAdjustmentValue: CGFloat = 0.6
-        let adjustedColor1 = hsbaColor.hueAdjusted(by: wrappingAdjustmentValue)
+        let adjustedColor1 = hsbaColor.withHue(adjustedBy: wrappingAdjustmentValue)
         XCTAssertEqual(testHue + wrappingAdjustmentValue - 1.0, adjustedColor1.hue, accuracy: 0.00001)
         
-        let adjustedColor2 = hsbaColor.hueAdjusted(by: -wrappingAdjustmentValue)
+        let adjustedColor2 = hsbaColor.withHue(adjustedBy: -wrappingAdjustmentValue)
         XCTAssertEqual(testHue - wrappingAdjustmentValue + 1.0, adjustedColor2.hue, accuracy: 0.00001)
         
         let adjustmentValue: CGFloat = 0.3
-        let adjustedColor3 = hsbaColor.hueAdjusted(by: adjustmentValue)
+        let adjustedColor3 = hsbaColor.withHue(adjustedBy: adjustmentValue)
         XCTAssertEqual(testHue + adjustmentValue, adjustedColor3.hue, accuracy: 0.00001)
         
-        let adjustedColor4 = hsbaColor.hueAdjusted(by: -adjustmentValue)
+        let adjustedColor4 = hsbaColor.withHue(adjustedBy: -adjustmentValue)
         XCTAssertEqual(testHue - adjustmentValue, adjustedColor4.hue, accuracy: 0.00001)
     }
 
@@ -91,28 +91,28 @@ class HSBAColorTests: XCTestCase {
         let hsbaColor = HSBAColor(hue: testHue, saturation: testSaturation, brightness: testBrightness, alpha: testAlpha)
         
         let adjustmentValue: CGFloat = 0.60
-        let adjustedColor1 = hsbaColor.saturationAdjusted(by: adjustmentValue)
+        let adjustedColor1 = hsbaColor.withSaturation(adjustedBy: adjustmentValue)
         XCTAssertEqual(1.0, adjustedColor1.saturation, accuracy: 0.00001)
         
-        let adjustedColor2 = hsbaColor.saturationAdjusted(by: adjustmentValue, withOverflow: true)
+        let adjustedColor2 = hsbaColor.withSaturation(adjustedBy: adjustmentValue, withOverflow: true)
         XCTAssertEqual(0.10, adjustedColor2.saturation, accuracy: 0.00001)
         
-        let adjustedColor3 = hsbaColor.saturationAdjusted(by: -adjustmentValue)
+        let adjustedColor3 = hsbaColor.withSaturation(adjustedBy: -adjustmentValue)
         XCTAssertEqual(0.0, adjustedColor3.saturation, accuracy: 0.00001)
         
-        let adjustedColor4 = hsbaColor.saturationAdjusted(by: -adjustmentValue, withOverflow: true)
+        let adjustedColor4 = hsbaColor.withSaturation(adjustedBy: -adjustmentValue, withOverflow: true)
         XCTAssertEqual(0.90, adjustedColor4.saturation, accuracy: 0.00001)
         
-        let adjustedColor5 = hsbaColor.saturationAdjusted(by: adjustmentValue, ceilingAt: 0.90)
+        let adjustedColor5 = hsbaColor.withSaturation(adjustedBy: adjustmentValue, ceilingAt: 0.90)
         XCTAssertEqual(0.90, adjustedColor5.saturation, accuracy: 0.00001)
         
-        let adjustedColor6 = hsbaColor.saturationAdjusted(by: adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
+        let adjustedColor6 = hsbaColor.withSaturation(adjustedBy: adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
         XCTAssertEqual(0.40, adjustedColor6.saturation, accuracy: 0.00001)
         
-        let adjustedColor7 = hsbaColor.saturationAdjusted(by: -adjustmentValue, floorAt: 0.20)
+        let adjustedColor7 = hsbaColor.withSaturation(adjustedBy: -adjustmentValue, floorAt: 0.20)
         XCTAssertEqual(0.20, adjustedColor7.saturation, accuracy: 0.00001)
         
-        let adjustedColor8 = hsbaColor.saturationAdjusted(by: -adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
+        let adjustedColor8 = hsbaColor.withSaturation(adjustedBy: -adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
         XCTAssertEqual(0.60, adjustedColor8.saturation, accuracy: 0.00001)
     }
     
@@ -125,28 +125,28 @@ class HSBAColorTests: XCTestCase {
         let hsbaColor = HSBAColor(hue: testHue, saturation: testSaturation, brightness: testBrightness, alpha: testAlpha)
         
         let adjustmentValue: CGFloat = 0.70
-        let adjustedColor1 = hsbaColor.brightnessAdjusted(by: adjustmentValue)
+        let adjustedColor1 = hsbaColor.withBrightness(adjustedBy: adjustmentValue)
         XCTAssertEqual(1.0, adjustedColor1.brightness, accuracy: 0.00001)
         
-        let adjustedColor2 = hsbaColor.brightnessAdjusted(by: adjustmentValue, withOverflow: true)
+        let adjustedColor2 = hsbaColor.withBrightness(adjustedBy: adjustmentValue, withOverflow: true)
         XCTAssertEqual(0.36, adjustedColor2.brightness, accuracy: 0.00001)
         
-        let adjustedColor3 = hsbaColor.brightnessAdjusted(by: -adjustmentValue)
+        let adjustedColor3 = hsbaColor.withBrightness(adjustedBy: -adjustmentValue)
         XCTAssertEqual(0.0, adjustedColor3.brightness, accuracy: 0.00001)
         
-        let adjustedColor4 = hsbaColor.brightnessAdjusted(by: -adjustmentValue, withOverflow: true)
+        let adjustedColor4 = hsbaColor.withBrightness(adjustedBy: -adjustmentValue, withOverflow: true)
         XCTAssertEqual(0.96, adjustedColor4.brightness, accuracy: 0.00001)
         
-        let adjustedColor5 = hsbaColor.brightnessAdjusted(by: adjustmentValue, ceilingAt: 0.90)
+        let adjustedColor5 = hsbaColor.withBrightness(adjustedBy: adjustmentValue, ceilingAt: 0.90)
         XCTAssertEqual(0.90, adjustedColor5.brightness, accuracy: 0.00001)
         
-        let adjustedColor6 = hsbaColor.brightnessAdjusted(by: adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
+        let adjustedColor6 = hsbaColor.withBrightness(adjustedBy: adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
         XCTAssertEqual(0.66, adjustedColor6.brightness, accuracy: 0.00001)
         
-        let adjustedColor7 = hsbaColor.brightnessAdjusted(by: -adjustmentValue, floorAt: 0.20)
+        let adjustedColor7 = hsbaColor.withBrightness(adjustedBy: -adjustmentValue, floorAt: 0.20)
         XCTAssertEqual(0.20, adjustedColor7.brightness, accuracy: 0.00001)
         
-        let adjustedColor8 = hsbaColor.brightnessAdjusted(by: -adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
+        let adjustedColor8 = hsbaColor.withBrightness(adjustedBy: -adjustmentValue, floorAt: 0.20, ceilingAt: 0.90, withOverflow: true)
         XCTAssertEqual(0.66, adjustedColor8.brightness, accuracy: 0.00001)
     }
 
@@ -159,22 +159,22 @@ class HSBAColorTests: XCTestCase {
         let hsbaColor = HSBAColor(hue: testHue, saturation: testSaturation, brightness: testBrightness, alpha: testAlpha)
         
         let adjustmentValue: CGFloat = 0.70
-        let adjustedColor1 = hsbaColor.alphaAdjusted(by: adjustmentValue)
+        let adjustedColor1 = hsbaColor.withAlpha(adjustedBy: adjustmentValue)
         XCTAssertEqual(1.0, adjustedColor1.alpha, accuracy: 0.00001)
         
-        let adjustedColor2 = hsbaColor.alphaAdjusted(by: -adjustmentValue)
+        let adjustedColor2 = hsbaColor.withAlpha(adjustedBy: -adjustmentValue)
         XCTAssertEqual(0.0, adjustedColor2.alpha, accuracy: 0.00001)
         
-        let adjustedColor3 = hsbaColor.alphaAdjusted(by: adjustmentValue, ceilingAt: 0.90)
+        let adjustedColor3 = hsbaColor.withAlpha(adjustedBy: adjustmentValue, ceilingAt: 0.90)
         XCTAssertEqual(0.90, adjustedColor3.alpha, accuracy: 0.00001)
         
-        let adjustedColor4 = hsbaColor.alphaAdjusted(by: -adjustmentValue, floorAt: 0.20)
+        let adjustedColor4 = hsbaColor.withAlpha(adjustedBy: -adjustmentValue, floorAt: 0.20)
         XCTAssertEqual(0.20, adjustedColor4.alpha, accuracy: 0.00001)
         
-        let adjustedColor5 = hsbaColor.alphaAdjusted(by: 0.10)
+        let adjustedColor5 = hsbaColor.withAlpha(adjustedBy: 0.10)
         XCTAssertEqual(0.60, adjustedColor5.alpha, accuracy: 0.00001)
         
-        let adjustedColor6 = hsbaColor.alphaAdjusted(by: -0.10)
+        let adjustedColor6 = hsbaColor.withAlpha(adjustedBy: -0.10)
         XCTAssertEqual(0.40, adjustedColor6.alpha, accuracy: 0.00001)
     }
 }

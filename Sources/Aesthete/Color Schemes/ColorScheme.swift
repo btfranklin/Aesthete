@@ -7,7 +7,7 @@ public struct ColorScheme: Codable, Hashable {
         return colors[0]
     }
 
-    init(using colors: [HSBAColor]) {
+    init(colors: [HSBAColor]) {
         self.colors = colors
     }
 }

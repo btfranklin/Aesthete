@@ -55,7 +55,7 @@ public enum Pathlet {
 
         case .path(let subpath, let startPoint):
             path.move(to: startPoint.applying(penTranslation))
-            path.addPath(subpath.createCGPath())
+            path.addPath(subpath.makeCGPath())
             path.closeSubpath()
 
         case .move(let endPoint):
@@ -106,7 +106,7 @@ public enum Pathlet {
 
         case .path(let subpath, let startPoint):
             path.move(to: startPoint.applying(penTransform))
-            path.addPath(subpath.createSwiftUIPath())
+            path.addPath(subpath.makeSwiftUIPath())
             path.closeSubpath()
 
         case .move(let endPoint):

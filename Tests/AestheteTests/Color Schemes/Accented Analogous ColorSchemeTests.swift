@@ -10,7 +10,7 @@ class AccentedAnalogousColorSchemeTests: XCTestCase {
                                            saturation: CGFloat(0.8),
                                            brightness: CGFloat(0.8),
                                            alpha: CGFloat(1.0))
-        let testColorScheme = ColorScheme.createAccentedAnalogous(basedOn: testThemeHSBAColor)
+        let testColorScheme = ColorScheme.makeAccentedAnalogous(themeColor: testThemeHSBAColor)
 
         XCTAssertEqual(5, testColorScheme.colors.count)
         XCTAssertEqual(testThemeHSBAColor, testColorScheme.themeColor)
@@ -23,7 +23,7 @@ class AccentedAnalogousColorSchemeTests: XCTestCase {
                                      brightness: CGFloat(0.8),
                                      alpha: CGFloat(1.0))
         
-        let testColorScheme = ColorScheme.createAccentedAnalogous(basedOn: testThemeColor.hsbaColor)
+        let testColorScheme = ColorScheme.makeAccentedAnalogous(themeColor: testThemeColor.hsbaColor)
 
         let testColors = testColorScheme.colors.map {NSColor(hsbaColor: $0)}
         XCTAssertEqual(5, testColors.count)

@@ -10,7 +10,7 @@ class AnalogousColorSchemeTests: XCTestCase {
                                            saturation: CGFloat(0.8),
                                            brightness: CGFloat(0.8),
                                            alpha: CGFloat(1.0))
-        let testColorScheme = ColorScheme.createAnalogous(basedOn: testThemeHSBAColor)
+        let testColorScheme = ColorScheme.makeAnalogous(themeColor: testThemeHSBAColor)
 
         XCTAssertEqual(5, testColorScheme.colors.count)
         XCTAssertEqual(testThemeHSBAColor, testColorScheme.themeColor)
@@ -23,7 +23,7 @@ class AnalogousColorSchemeTests: XCTestCase {
                                      brightness: CGFloat(0.8),
                                      alpha: CGFloat(1.0))
         
-        let testColorScheme = ColorScheme.createAnalogous(basedOn: testThemeColor.hsbaColor)
+        let testColorScheme = ColorScheme.makeAnalogous(themeColor: testThemeColor.hsbaColor)
 
         let testColors = testColorScheme.colors.map {NSColor(hsbaColor: $0)}
         XCTAssertEqual(5, testColors.count)

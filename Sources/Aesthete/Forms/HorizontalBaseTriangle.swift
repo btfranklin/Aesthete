@@ -6,8 +6,14 @@ public struct HorizontalBaseTriangle: Codable {
     
     public let vertices: [CGPoint]
 
-    public lazy var path: CGPath = {
-        HorizontalBaseTriangle.createPath(from: self.vertices)
+    public lazy var cgPath: CGPath = {
+        let path = CGMutablePath()
+        path.move(to: vertices[0])
+        path.addLine(to: vertices[1])
+        path.addLine(to: vertices[2])
+        path.addLine(to: vertices[0])
+        path.closeSubpath()
+        return path
     }()
 
     public init() {
@@ -36,15 +42,4 @@ public struct HorizontalBaseTriangle: Codable {
         self.vertices = vertices
     }
     
-    private static func createPath(from vertices: [CGPoint]) -> CGPath {
-        
-        let path = CGMutablePath()
-        path.move(to: vertices[0])
-        path.addLine(to: vertices[1])
-        path.addLine(to: vertices[2])
-        path.addLine(to: vertices[0])
-        path.closeSubpath()
-        
-        return path.copy()!
-    }
 }

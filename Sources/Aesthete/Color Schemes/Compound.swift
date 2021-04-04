@@ -3,29 +3,33 @@
 import CoreGraphics
 
 extension ColorScheme {
-
-    public static func createCompound(basedOn themeColor: HSBAColor) -> ColorScheme {
-
+    
+    public static func makeCompound(themeColor: HSBAColor) -> ColorScheme {
+        
         var colors: [HSBAColor] = []
-
+        
         colors.append(themeColor)
         
         colors.append(themeColor
-            .hueAdjusted(by: 0.1)
-            .saturationAdjusted(by: -0.10, floorAt: 0.10).brightnessAdjusted(by: -0.20, floorAt: 0.20))
+                        .withHue(adjustedBy: 0.1)
+                        .withSaturation(adjustedBy: -0.10, floorAt: 0.10)
+                        .withBrightness(adjustedBy: -0.20, floorAt: 0.20))
         colors.append(themeColor
-            .hueAdjusted(by: 0.1)
-            .saturationAdjusted(by: -0.40, floorAt: 0.10, ceilingAt: 0.90).brightnessAdjusted(by: -0.40, floorAt: 0.20))
-
-        colors.append(themeColor
-            .hueAdjusted(by: -0.05).complement()
-            .saturationAdjusted(by: -0.25, floorAt: 0.10).brightnessAdjusted(by: 0.05, floorAt: 0.20))
+                        .withHue(adjustedBy: 0.1)
+                        .withSaturation(adjustedBy: -0.40, floorAt: 0.10, ceilingAt: 0.90)
+                        .withBrightness(adjustedBy: -0.40, floorAt: 0.20))
         
         colors.append(themeColor
-            .hueAdjusted(by: -0.1).complement()
-            .saturationAdjusted(by: 0.10, ceilingAt: 0.90).brightnessAdjusted(by: -0.20, floorAt: 0.20))
-
-        return ColorScheme(using: colors)
+                        .withHue(adjustedBy: -0.05).complement()
+                        .withSaturation(adjustedBy: -0.25, floorAt: 0.10)
+                        .withBrightness(adjustedBy: 0.05, floorAt: 0.20))
+        
+        colors.append(themeColor
+                        .withHue(adjustedBy: -0.1).complement()
+                        .withSaturation(adjustedBy: 0.10, ceilingAt: 0.90)
+                        .withBrightness(adjustedBy: -0.20, floorAt: 0.20))
+        
+        return ColorScheme(colors: colors)
     }
     
 }

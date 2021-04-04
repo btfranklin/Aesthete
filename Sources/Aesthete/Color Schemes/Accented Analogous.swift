@@ -4,7 +4,7 @@ import CoreGraphics
 
 extension ColorScheme {
 
-    public static func createAccentedAnalogous(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
+    public static func makeAccentedAnalogous(themeColor: HSBAColor, spacing: CGFloat = 0.05) -> ColorScheme {
 
         guard (0.0..<0.2).contains(spacing) else {
             fatalError("Spacing must be between 0 and 0.2")
@@ -14,17 +14,24 @@ extension ColorScheme {
         
         colors.append(themeColor)
         colors.append(themeColor
-            .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: spacing).brightnessAdjusted(by: -0.05, floorAt: 0.20))
+                        .withSaturation(adjustedBy: -0.05, floorAt: 0.10)
+                        .withHue(adjustedBy: spacing).withBrightness(adjustedBy: -0.05, floorAt: 0.20))
         colors.append(themeColor
-            .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: -spacing).brightnessAdjusted(by: -0.05, floorAt: 0.20))
+                        .withSaturation(adjustedBy: -0.05, floorAt: 0.10)
+                        .withHue(adjustedBy: -spacing)
+                        .withBrightness(adjustedBy: -0.05, floorAt: 0.20))
         
         // Accent colors
         colors.append(themeColor
-            .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: spacing*2).complement().brightnessAdjusted(by: 0, floorAt: 0.20))
+                        .withSaturation(adjustedBy: -0.05, floorAt: 0.10)
+                        .withHue(adjustedBy: spacing*2).complement()
+                        .withBrightness(adjustedBy: 0, floorAt: 0.20))
         colors.append(themeColor
-            .saturationAdjusted(by: -0.05, floorAt: 0.10).hueAdjusted(by: -(spacing*2)).complement().brightnessAdjusted(by: 0, floorAt: 0.20))
+                        .withSaturation(adjustedBy: -0.05, floorAt: 0.10)
+                        .withHue(adjustedBy: -(spacing*2)).complement()
+                        .withBrightness(adjustedBy: 0, floorAt: 0.20))
 
-        return ColorScheme(using: colors)
+        return ColorScheme(colors: colors)
     }
     
 }

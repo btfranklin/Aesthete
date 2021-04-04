@@ -4,23 +4,27 @@ import CoreGraphics
 
 extension ColorScheme {
 
-    public static func createSplitComplementary(basedOn themeColor: HSBAColor, withSpacing spacing: CGFloat = 0.05) -> ColorScheme {
+    public static func makeSplitComplementary(themeColor: HSBAColor, spacing: CGFloat = 0.05) -> ColorScheme {
 
         var colors: [HSBAColor] = []
 
         colors.append(themeColor)
 
         colors.append(themeColor
-            .saturationAdjusted(by: 0.10).brightnessAdjusted(by: -0.30, floorAt: 0.20, withOverflow: true))
+                        .withSaturation(adjustedBy: 0.10)
+                        .withBrightness(adjustedBy: -0.30, floorAt: 0.20, withOverflow: true))
         colors.append(themeColor
-            .saturationAdjusted(by: -0.10).brightnessAdjusted(by: 0.30))
+                        .withSaturation(adjustedBy: -0.10)
+                        .withBrightness(adjustedBy: 0.30))
         
         colors.append(themeColor
-            .complement().hueAdjusted(by: spacing))
+                        .complement()
+                        .withHue(adjustedBy: spacing))
         colors.append(themeColor
-            .complement().hueAdjusted(by: -spacing))
+                        .complement()
+                        .withHue(adjustedBy: -spacing))
         
-        return ColorScheme(using: colors)
+        return ColorScheme(colors: colors)
     }
     
 }

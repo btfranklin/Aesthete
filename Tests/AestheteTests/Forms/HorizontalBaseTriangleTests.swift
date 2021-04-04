@@ -9,18 +9,18 @@ class HorizontalBaseTriangleTests: XCTestCase {
     func testRandomInit() {
         var triangle = HorizontalBaseTriangle()
         XCTAssertEqual(3, triangle.vertices.count)
-        XCTAssertFalse(triangle.path.isEmpty)
+        XCTAssertFalse(triangle.cgPath.isEmpty)
     }
 
     func testVerticesInit() {
         let point1 = CGPoint(x: 21.0, y: 18.0)
         var triangle1 = HorizontalBaseTriangle(vertex: point1)
-        XCTAssertFalse(triangle1.path.isEmpty)
+        XCTAssertFalse(triangle1.cgPath.isEmpty)
         XCTAssertEqual(point1, triangle1.vertices[1])
 
         let point2 = CGPoint(x: 0.5, y: 0.3)
         var triangle2 = HorizontalBaseTriangle(vertex: point2)
-        XCTAssertFalse(triangle2.path.isEmpty)
+        XCTAssertFalse(triangle2.cgPath.isEmpty)
         XCTAssertEqual(point2, triangle2.vertices[1])
     }
 }

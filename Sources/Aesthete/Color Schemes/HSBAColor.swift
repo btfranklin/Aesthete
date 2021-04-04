@@ -25,7 +25,7 @@ public struct HSBAColor: Codable, Hashable {
         self.alpha = alpha
     }
     
-    public func hueAdjusted(by change: CGFloat) -> HSBAColor {
+    public func withHue(adjustedBy change: CGFloat) -> HSBAColor {
         guard (-1.0...1.0).contains(change) else {
             fatalError("Hue adjustment must be between 1.0 and -1.0")
         }
@@ -45,13 +45,13 @@ public struct HSBAColor: Codable, Hashable {
     }
     
     public func complement() -> HSBAColor {
-        return hueAdjusted(by: 0.5)
+        self.withHue(adjustedBy: 0.5)
     }
 
-    public func saturationAdjusted(by change: CGFloat,
-                                   floorAt floor: CGFloat = 0.0,
-                                   ceilingAt ceiling: CGFloat = 1.0,
-                                   withOverflow: Bool = false) -> HSBAColor {
+    public func withSaturation(adjustedBy change: CGFloat,
+                               floorAt floor: CGFloat = 0.0,
+                               ceilingAt ceiling: CGFloat = 1.0,
+                               withOverflow: Bool = false) -> HSBAColor {
         
         var newSaturation = saturation + change
         
@@ -76,10 +76,10 @@ public struct HSBAColor: Codable, Hashable {
                          alpha: alpha)
     }
     
-    public func brightnessAdjusted(by change: CGFloat,
-                                   floorAt floor: CGFloat = 0.0,
-                                   ceilingAt ceiling: CGFloat = 1.0,
-                                   withOverflow: Bool = false) -> HSBAColor {
+    public func withBrightness(adjustedBy change: CGFloat,
+                               floorAt floor: CGFloat = 0.0,
+                               ceilingAt ceiling: CGFloat = 1.0,
+                               withOverflow: Bool = false) -> HSBAColor {
         
         var newBrightness = brightness + change
         
@@ -103,9 +103,9 @@ public struct HSBAColor: Codable, Hashable {
                          alpha: alpha)
     }
 
-    public func alphaAdjusted(by change: CGFloat,
-                              floorAt floor: CGFloat = 0.0,
-                              ceilingAt ceiling: CGFloat = 1.0) -> HSBAColor {
+    public func withAlpha(adjustedBy change: CGFloat,
+                          floorAt floor: CGFloat = 0.0,
+                          ceilingAt ceiling: CGFloat = 1.0) -> HSBAColor {
         
         var newAlpha = alpha + change
         
@@ -124,8 +124,8 @@ public struct HSBAColor: Codable, Hashable {
 }
 
 extension HSBAColor {
-    static public func random(withSaturationRange saturationRange: ClosedRange<CGFloat> = (0.0...1.0),
-                              withBrightnessRange brightnessRange: ClosedRange<CGFloat> = (0.0...1.0)) -> HSBAColor {
+    static public func random(inSaturationRange saturationRange: ClosedRange<CGFloat> = (0.0...1.0),
+                              inBrightnessRange brightnessRange: ClosedRange<CGFloat> = (0.0...1.0)) -> HSBAColor {
         return HSBAColor(hue: CGFloat.random(in: 0.0...1.0),
                          saturation: CGFloat.random(in: saturationRange),
                          brightness: CGFloat.random(in: brightnessRange),
@@ -134,7 +134,7 @@ extension HSBAColor {
 }
 
 extension CGColor {
-    static public func create(from hsbaColor: HSBAColor) -> CGColor {
+    static public func make(hsbaColor: HSBAColor) -> CGColor {
         #if canImport(UIKit)
             let uiColor = UIColor(hsbaColor: hsbaColor)
             return uiColor.cgColor
