@@ -207,6 +207,7 @@ extension CGColor {
                       opacity: Double(hsbaColor.alpha))
         }
 
+        @available(iOS 14.0, *)
         @available(OSX 11, *)
         public var hsbaColor: HSBAColor {
             return self.cgColor?.hsbaColor ?? HSBAColor(hue: 0, saturation: 0, brightness: 0, alpha: 0)
