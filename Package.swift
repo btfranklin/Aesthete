@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Aesthete",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13),
+        .macOS(.v10_15), .iOS(.v13), .tvOS(.v14), .watchOS(.v7)
     ],
     products: [
         .library(
@@ -14,7 +14,7 @@ let package = Package(
             targets: ["Aesthete"]),
     ],
     dependencies: [
-        .package(name: "Dunesailer Utilities", url: "https://github.com/dunesailer/Utilities.git", from: "2.0.2"),
+        .package(name: "Dunesailer Utilities", url: "https://github.com/dunesailer/Utilities.git", from: "2.0.4"),
     ],
     targets: [
         .target(
