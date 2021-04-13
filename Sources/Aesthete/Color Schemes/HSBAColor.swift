@@ -157,7 +157,6 @@ extension CGColor {
             fatalError("Not able to create an HSBAColor from a CGColor on this platform.")
         #endif
     }
-    
 }
 
 #if canImport(UIKit)
