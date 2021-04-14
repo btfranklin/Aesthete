@@ -45,28 +45,28 @@ struct ColorSchemeView: View {
     var colorScheme: Aesthete.ColorScheme {
         switch selectedScheme {
         case .analogous:
-            return AnalogousColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeAnalogous(themeColor: selectedColor.hsbaColor)
 
         case .accentedAnalogous:
-            return AccentedAnalogousColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeAccentedAnalogous(themeColor: selectedColor.hsbaColor)
 
         case .shades:
-            return ShadesColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeShades(themeColor: selectedColor.hsbaColor)
 
         case .monochromatic:
-            return MonochromaticColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeMonochromatic(themeColor: selectedColor.hsbaColor)
 
         case .complementary:
-            return ComplementaryColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeComplementary(themeColor: selectedColor.hsbaColor)
 
         case .splitComplementary:
-            return SplitComplementaryColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeSplitComplementary(themeColor: selectedColor.hsbaColor)
 
         case .triadic:
-            return TriadicColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeTriadic(themeColor: selectedColor.hsbaColor)
 
         case .compound:
-            return CompoundColorScheme(themeColor: selectedColor.hsbaColor)
+            return ColorScheme.makeCompound(themeColor: selectedColor.hsbaColor)
         }
     }
 
