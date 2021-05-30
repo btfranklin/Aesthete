@@ -14,12 +14,15 @@ let package = Package(
             targets: ["Aesthete"]),
     ],
     dependencies: [
-        .package(name: "Dunesailer Utilities", url: "https://github.com/dunesailer/Utilities.git", from: "2.0.6"),
+        .package(name: "Dunesailer Utilities",
+                 url: "https://github.com/dunesailer/Utilities.git",
+                 .branch("master")),
     ],
     targets: [
         .target(
             name: "Aesthete",
-            dependencies: [.product(name: "DunesailerUtilities", package: "Dunesailer Utilities")]),
+            dependencies: [.product(name: "DunesailerUtilities",
+                                    package: "Dunesailer Utilities")]),
         .testTarget(
             name: "AestheteTests",
             dependencies: ["Aesthete"]),

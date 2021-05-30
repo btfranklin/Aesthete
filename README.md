@@ -28,7 +28,7 @@ To install the Swift Package, please follow the steps below:
 
 ## Playgrounds
 
-In the [Playgrounds folder](https://github.com/dunesailer/Aesthete/Sources/Playgrounds), you will find examples of how to use some of the features of `Aesthete`.
+In the [Playgrounds folder](https://github.com/dunesailer/Aesthete/tree/master/Sources/Playgrounds), you will find examples of how to use some of the features of `Aesthete`.
 
 ## License
 

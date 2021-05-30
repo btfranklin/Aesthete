@@ -5,9 +5,9 @@
         "package": "Dunesailer Utilities",
         "repositoryURL": "https://github.com/dunesailer/Utilities.git",
         "state": {
-          "branch": null,
-          "revision": "ff130ed7342410a41286d1897b438851aadbcfc0",
-          "version": "2.0.6"
+          "branch": "master",
+          "revision": "7df17a13312f4f4af60bc216ae1da98f1cdc4c84",
+          "version": null
         }
       }
     ]
