@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
         .package(name: "Dunesailer Utilities",
                  url: "https://github.com/dunesailer/Utilities.git",
-                 .branch("master")),
+                 from: "2.0.6"),
     ],
     targets: [
         .target(
