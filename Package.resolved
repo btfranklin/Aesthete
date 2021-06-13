@@ -2,7 +2,7 @@
   "object": {
     "pins": [
       {
-        "package": "Dunesailer Utilities",
+        "package": "Utilities",
         "repositoryURL": "https://github.com/dunesailer/Utilities.git",
         "state": {
           "branch": null,
