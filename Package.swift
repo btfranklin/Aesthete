@@ -21,8 +21,10 @@ let package = Package(
     targets: [
         .target(
             name: "Aesthete",
-            dependencies: [.product(name: "DunesailerUtilities",
-                                    package: "Dunesailer Utilities")]),
+            dependencies: [
+                .product(name: "DunesailerUtilities",
+                         package: "Dunesailer Utilities")
+            ]),
         .testTarget(
             name: "AestheteTests",
             dependencies: ["Aesthete"]),
