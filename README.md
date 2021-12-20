@@ -1,12 +1,12 @@
 Aesthete
 ========
 
-[![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdunesailer%2FAesthete%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/dunesailer/Aesthete)
-[![Swift versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdunesailer%2FAesthete%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/dunesailer/Aesthete)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/dunesailer/Aesthete/blob/master/LICENSE)
+[![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fbtfranklin%2FAesthete%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/btfranklin/Aesthete)
+[![Swift versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fbtfranklin%2FAesthete%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/btfranklin/Aesthete)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/btfranklin/Aesthete/blob/main/LICENSE)
 [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat&colorA=28a745&&colorB=4E4E4E)](https://github.com/apple/swift-package-manager)
-[![GitHub tag](https://img.shields.io/github/tag/dunesailer/Aesthete.svg)](https://github.com/dunesailer/Aesthete)
-[![build](https://github.com/dunesailer/Aesthete/workflows/build/badge.svg)](https://github.com/dunesailer/Aesthete/actions?query=workflow%3Abuild)
+[![GitHub tag](https://img.shields.io/github/tag/btfranklin/Aesthete.svg)](https://github.com/btfranklin/Aesthete)
+[![build](https://github.com/btfranklin/Aesthete/workflows/build/badge.svg)](https://github.com/btfranklin/Aesthete/actions?query=workflow%3Abuild)
 
 `Aesthete` is a Swift package that provides utilities to assist in working with various aesthetic concepts, such as visual forms and color schemes.
 
