@@ -2,7 +2,6 @@
 
 import Foundation
 import CoreGraphics
-import DunesailerUtilities
 
 public struct SymbolicForm: Codable {
     

@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Utilities",
-        "repositoryURL": "https://github.com/dunesailer/Utilities.git",
+        "package": "ControlledChaos",
+        "repositoryURL": "https://github.com/btfranklin/ControlledChaos",
         "state": {
           "branch": null,
-          "revision": "ff130ed7342410a41286d1897b438851aadbcfc0",
-          "version": "2.0.6"
+          "revision": "212c8f4de1b4249ee6ce3afb2939f9df964514d1",
+          "version": "1.0.0"
         }
       }
     ]
