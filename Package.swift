@@ -15,7 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/btfranklin/ControlledChaos",
-                    .upToNextMajor(from: "1.0.0")),
+                    .upToNextMajor(from: "1.1.0")),
     ],
     targets: [
         .target(
