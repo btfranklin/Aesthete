@@ -18,14 +18,6 @@ Aesthete
 - Data objects to ease the process of working with sections of paths that need to be independently stored, modified, or repeated (`Pathlet`)
 - Various extensions to standard datatypes to enhance their functionality
 
-## Installation
-
-To install the Swift Package, please follow the steps below:
-
-- Add `https://github.com/dunesailer/Aesthete` as a [Swift Package Manager](https://swift.org/package-manager/) dependency to your project.
-- When asked to **Choose Package Options**, use the default settings provided by Xcode.
-- When asked to **Add Package**, add `Aesthete` to your desired target(s).
-
 ## Playgrounds
 
 In the [Playgrounds folder](https://github.com/dunesailer/Aesthete/tree/master/Playgrounds), you will find examples of how to use some of the features of `Aesthete`.
