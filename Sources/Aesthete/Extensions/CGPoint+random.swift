@@ -7,8 +7,8 @@ extension CGPoint {
     public static func random(inX xRange: ClosedRange<CGFloat>,
                               inY yRange: ClosedRange<CGFloat>,
                               using randomNumberGenerator: inout some RandomNumberGenerator) -> CGPoint {
-        CGPoint(x: CGFloat.random(in: xRange),
-                y: CGFloat.random(in: yRange))
+        CGPoint(x: CGFloat.random(in: xRange, using: &randomNumberGenerator),
+                y: CGFloat.random(in: yRange, using: &randomNumberGenerator))
     }
 
     public static func random(inX xRange: ClosedRange<CGFloat>,
