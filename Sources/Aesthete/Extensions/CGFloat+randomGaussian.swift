@@ -63,5 +63,11 @@ extension CGFloat {
                                       withMinimum: minimum,
                                       using: &randomNumberGenerator)
     }
+
+    // Resets the random Gaussian calculation. This is necessary between subsequent runs using a seeded RNG to ensure
+    // the the same sequence is repeated, since otherwise a lingering "queued Gaussian" may be returned.
+    public static func resetRandomGaussian() {
+        queudGaussian = nil
+    }
     
 }
