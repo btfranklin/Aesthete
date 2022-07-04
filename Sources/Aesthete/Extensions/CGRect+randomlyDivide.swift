@@ -5,7 +5,8 @@ import ControlledChaos
 
 extension CGRect {
     
-    public func randomlyDivided(into subRectCount: Int) -> [CGRect] {
+    public func randomlyDivided(into subRectCount: Int,
+                                using randomNumberGenerator: inout some RandomNumberGenerator) -> [CGRect] {
         
         guard subRectCount > 1 else {
             fatalError("CGRect cannot be divided into fewer than 2 subrectangles")
@@ -41,5 +42,9 @@ extension CGRect {
 
         return rects
     }
-    
+
+    public func randomlyDivided(into subRectCount: Int) -> [CGRect] {
+        var randomNumberGenerator = SystemRandomNumberGenerator()
+        return self.randomlyDivided(into: subRectCount, using: &randomNumberGenerator)
+    }
 }

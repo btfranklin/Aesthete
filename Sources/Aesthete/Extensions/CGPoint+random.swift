@@ -4,20 +4,61 @@ import CoreGraphics
 
 extension CGPoint {
     
-    public static func random(inX xRange: ClosedRange<CGFloat>, inY yRange: ClosedRange<CGFloat>) -> CGPoint {
-        CGPoint(x: CGFloat.random(in: xRange), y: CGFloat.random(in: yRange))
+    public static func random(inX xRange: ClosedRange<CGFloat>,
+                              inY yRange: ClosedRange<CGFloat>,
+                              using randomNumberGenerator: inout some RandomNumberGenerator) -> CGPoint {
+        CGPoint(x: CGFloat.random(in: xRange),
+                y: CGFloat.random(in: yRange))
+    }
+
+    public static func random(inX xRange: ClosedRange<CGFloat>,
+                              inY yRange: ClosedRange<CGFloat>) -> CGPoint {
+        var randomNumberGenerator = SystemRandomNumberGenerator()
+        return CGPoint.random(inX: xRange,
+                              inY: yRange,
+                              using: &randomNumberGenerator)
     }
     
-    public static func random(inX xRange: ClosedRange<Double>, inY yRange: ClosedRange<Double>) -> CGPoint {
-        CGPoint(x: Double.random(in: xRange), y:  Double.random(in: yRange))
+    public static func random(inX xRange: ClosedRange<Double>,
+                              inY yRange: ClosedRange<Double>,
+                              using randomNumberGenerator: inout some RandomNumberGenerator) -> CGPoint {
+        CGPoint(x: Double.random(in: xRange, using: &randomNumberGenerator),
+                y: Double.random(in: yRange, using: &randomNumberGenerator))
     }
-    
-    public static func random(inX xRange: ClosedRange<Int>, inY yRange: ClosedRange<Int>) -> CGPoint {
-        CGPoint(x: Int.random(in: xRange), y:  Int.random(in: yRange))
+
+    public static func random(inX xRange: ClosedRange<Double>,
+                              inY yRange: ClosedRange<Double>) -> CGPoint {
+        var randomNumberGenerator = SystemRandomNumberGenerator()
+        return CGPoint.random(inX: xRange,
+                              inY: yRange,
+                              using: &randomNumberGenerator)
+    }
+
+    public static func random(inX xRange: ClosedRange<Int>,
+                              inY yRange: ClosedRange<Int>,
+                              using randomNumberGenerator: inout some RandomNumberGenerator) -> CGPoint {
+        CGPoint(x: Int.random(in: xRange, using: &randomNumberGenerator),
+                y: Int.random(in: yRange, using: &randomNumberGenerator))
+    }
+
+    public static func random(inX xRange: ClosedRange<Int>,
+                              inY yRange: ClosedRange<Int>) -> CGPoint {
+        var randomNumberGenerator = SystemRandomNumberGenerator()
+        return CGPoint.random(inX: xRange,
+                              inY: yRange,
+                              using: &randomNumberGenerator)
+    }
+
+    public static func random(in rect: CGRect,
+                              using randomNumberGenerator: inout some RandomNumberGenerator) -> CGPoint {
+        CGPoint.random(inX: rect.minX...rect.maxX,
+                       inY: rect.minY...rect.maxY,
+                       using: &randomNumberGenerator)
     }
 
     public static func random(in rect: CGRect) -> CGPoint {
-        CGPoint.random(inX: rect.minX...rect.maxX, inY: rect.minY...rect.maxY)
+        var randomNumberGenerator = SystemRandomNumberGenerator()
+        return CGPoint.random(in: rect,
+                              using: &randomNumberGenerator)
     }
-
 }
