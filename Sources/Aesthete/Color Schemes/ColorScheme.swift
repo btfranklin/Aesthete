@@ -4,10 +4,13 @@ public struct ColorScheme: Codable, Hashable {
     public let colors: [HSBAColor]
 
     public var themeColor: HSBAColor {
-        return colors[0]
+        colors.first!
     }
 
     init(colors: [HSBAColor]) {
+        guard !colors.isEmpty else {
+            fatalError("ColorScheme colors cannot be empty")
+        }
         self.colors = colors
     }
 }
