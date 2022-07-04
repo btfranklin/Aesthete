@@ -4,9 +4,9 @@ import CoreGraphics
 
 extension CGPath {
     public func contains(_ rect: CGRect) -> Bool {
-        return self.contains(rect.bottomLeftCorner)
-            && self.contains(rect.topLeftCorner)
-            && self.contains(rect.bottomRightCorner)
-            && self.contains(rect.topRightCorner)
+        self.contains(rect.bottomLeftCorner)
+        && self.contains(rect.topLeftCorner)
+        && self.contains(rect.bottomRightCorner)
+        && self.contains(rect.topRightCorner)
     }
 }
