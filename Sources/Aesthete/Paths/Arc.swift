@@ -18,12 +18,13 @@ public struct Arc: PathComponent {
         self.clockwise = clockwise
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
         mutablePath.addArc(center: center,
                            radius: radius,
                            startAngle: startAngle,
                            endAngle: endAngle,
-                           clockwise: clockwise)
+                           clockwise: clockwise,
+                           transform: transform)
     }
 
 }

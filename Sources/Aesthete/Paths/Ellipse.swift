@@ -10,7 +10,8 @@ public struct Ellipse: PathComponent {
         self.rect = rect
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.addEllipse(in: rect)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.addEllipse(in: rect,
+                               transform: transform)
     }
 }

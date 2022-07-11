@@ -14,7 +14,10 @@ public struct Curve: PathComponent {
         self.control2 = control2
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.addCurve(to: point, control1: control1, control2: control2)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.addCurve(to: point,
+                             control1: control1,
+                             control2: control2,
+                             transform: transform)
     }
 }

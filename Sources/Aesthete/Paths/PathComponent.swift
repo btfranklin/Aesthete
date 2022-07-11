@@ -3,8 +3,14 @@
 import CoreGraphics
 
 public protocol PathComponent {
-    func makeCGPath() -> CGPath
+    func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform)
     func appendOnto(_ mutablePath: CGMutablePath)
+}
+
+extension PathComponent {
+    public func appendOnto(_ mutablePath: CGMutablePath) {
+        self.appendOnto(mutablePath, with: .identity)
+    }
 }
 
 extension PathComponent {

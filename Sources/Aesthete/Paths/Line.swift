@@ -10,8 +10,9 @@ public struct Line: PathComponent {
         self.point = point
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.addLine(to: point)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.addLine(to: point,
+                            transform: transform)
     }
 
 }

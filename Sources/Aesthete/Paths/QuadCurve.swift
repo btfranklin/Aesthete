@@ -12,7 +12,9 @@ public struct QuadCurve: PathComponent {
         self.control = control
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.addQuadCurve(to: point, control: control)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.addQuadCurve(to: point,
+                                 control: control,
+                                 transform: transform)
     }
 }

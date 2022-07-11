@@ -10,7 +10,8 @@ public struct Rectangle: PathComponent {
         self.rect = rect
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.addRect(rect)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.addRect(rect,
+                            transform: transform)
     }
 }

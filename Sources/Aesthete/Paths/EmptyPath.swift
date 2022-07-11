@@ -3,7 +3,7 @@
 import CoreGraphics
 
 public struct EmptyPath: PathComponent {
-    public func appendOnto(_ mutablePath: CGMutablePath) {
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
         // No-op
     }
 }

@@ -12,10 +12,12 @@ public struct Path: PathComponent {
         self.components = componentsClosure()
     }
 
-    public func appendOnto(_ mutablePath: CGMutablePath) {
-        mutablePath.move(to: point)
+    public func appendOnto(_ mutablePath: CGMutablePath, with transform: CGAffineTransform) {
+        mutablePath.move(to: point,
+                         transform: transform)
         for component in components {
-            component.appendOnto(mutablePath)
+            component.appendOnto(mutablePath,
+                                 with: transform)
         }
         mutablePath.closeSubpath()
     }
