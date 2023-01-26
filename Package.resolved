@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "ControlledChaos",
-        "repositoryURL": "https://github.com/btfranklin/ControlledChaos",
-        "state": {
-          "branch": null,
-          "revision": "81f6823276bf8bbbf727a0b3f5e652ae198e72b3",
-          "version": "1.3.0"
-        }
+  "pins" : [
+    {
+      "identity" : "controlledchaos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/btfranklin/ControlledChaos",
+      "state" : {
+        "revision" : "c69a935f81e4a523bb2ccc9b153849f00a5e2e12",
+        "version" : "1.3.2"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }
