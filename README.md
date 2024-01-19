@@ -18,10 +18,6 @@ Aesthete
 - Data objects to ease the process of working with sections of paths that need to be independently stored, modified, or repeated (`Pathlet`)
 - Various extensions to standard datatypes to enhance their functionality
 
-## Playgrounds
-
-In the [Playgrounds folder](https://github.com/dunesailer/Aesthete/tree/master/Playgrounds), you will find examples of how to use some of the features of `Aesthete`.
-
 ## License
 
 `Aesthete` was written by B.T. Franklin ([@btfranklin](https://github.com/btfranklin)) from 2019 onward and is licensed under the [MIT](https://opensource.org/licenses/MIT) license. See [LICENSE.md](LICENSE.md).
