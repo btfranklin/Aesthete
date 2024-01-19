@@ -1,7 +1,6 @@
 //  Created by B.T. Franklin on 5/19/19
 
 import CoreGraphics
-import SwiftUI
 
 /// A single element of a path that can be combined with others to make a complex resulting path.
 public enum Pathlet {
@@ -63,54 +62,4 @@ public enum Pathlet {
         }
     }
 
-    /// Appends the path element represented by this Pathlet onto the provided SwiftUI Path.
-    ///
-    /// - Parameters:
-    ///   - path: the Path onto which to append
-    ///   - scale: the amount by which to scale the element before appending it
-    ///   - useRelativePositioning: true if the appended element should be positioned relative to the current endpoint of the path, false if not
-    public func append(onto path: inout Path,
-                       scaledBy scale: CGFloat = 1.0,
-                       usingRelativePositioning useRelativePositioning: Bool = true) {
-
-        let translation = useRelativePositioning
-            ? CGAffineTransform(translationX: path.currentPoint!.x, y: path.currentPoint!.y)
-            : .identity
-        let penTransform = translation.scaledBy(x: scale, y: scale)
-
-        switch self {
-        case .arc(let center, let radius, let startAngle, let endAngle, let clockwise):
-            path.addArc(center: center.applying(penTransform),
-                        radius: radius,
-                        startAngle: Angle(radians: Double(startAngle)),
-                        endAngle: Angle(radians: Double(endAngle)),
-                        clockwise: clockwise)
-
-        case .ellipse(let rect):
-            path.addEllipse(in: rect.applying(penTransform))
-
-        case .line(let endPoint):
-            path.addLine(to: endPoint.applying(penTransform))
-
-        case .curve(let endPoint, let control1, let control2):
-            path.addCurve(to: endPoint.applying(penTransform),
-                          control1: control1.applying(penTransform),
-                          control2: control2.applying(penTransform))
-
-        case .quadCurve(let endPoint, let control):
-            path.addQuadCurve(to: endPoint.applying(penTransform),
-                              control: control.applying(penTransform))
-
-        case .rectangle(let rect):
-            path.addRect(rect.applying(penTransform))
-
-        case .path(let subpath, let startPoint):
-            path.move(to: startPoint.applying(penTransform))
-            path.addPath(subpath.makeSwiftUIPath())
-            path.closeSubpath()
-
-        case .move(let endPoint):
-            path.move(to: endPoint.applying(penTransform))
-        }
-    }
 }

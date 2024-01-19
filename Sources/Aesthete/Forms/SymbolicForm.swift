@@ -1,6 +1,5 @@
 //  Created by B.T. Franklin on 4/7/19
 
-import Foundation
 import CoreGraphics
 
 public struct SymbolicForm: Codable {
