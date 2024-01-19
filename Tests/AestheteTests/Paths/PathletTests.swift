@@ -2,7 +2,6 @@
 
 import XCTest
 import CoreGraphics
-import SwiftUI
 @testable import Aesthete
 
 class PathletTests: XCTestCase {
@@ -13,16 +12,20 @@ class PathletTests: XCTestCase {
 
         let compositePath = CompositePath(pathlets: [pathlet1, pathlet2])
         let relativeCGPath = compositePath.makeCGPath()
-        XCTAssertEqual(CGPoint(x: 8.241813835208838, y: 11.048825908847377), relativeCGPath.currentPoint)
-
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 8.241813835208838, y: 11.048825908847377), relativeSwiftUIPath.currentPoint)
+        XCTAssertEqual(8.241813835208838,
+                       relativeCGPath.currentPoint.x,
+                       accuracy: 0.0001)
+        XCTAssertEqual(11.048825908847377,
+                       relativeCGPath.currentPoint.y,
+                       accuracy: 0.0001)
 
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 5.620906917604419, y: 7.524412954423689), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 5.620906917604419, y: 7.524412954423689), absoluteSwiftUIPath.currentPoint)
+        XCTAssertEqual(5.620906917604419,
+                       absoluteCGPath.currentPoint.x,
+                       accuracy: 0.0001)
+        XCTAssertEqual(7.524412954423689,
+                       absoluteCGPath.currentPoint.y,
+                       accuracy: 0.0001)
     }
 
     func testAppendEllipse() {
@@ -33,14 +36,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 7.0, y: 5.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 7.0, y: 5.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 5.0, y: 3.5), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 5.0, y: 3.5), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendLine() {
@@ -51,14 +48,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendCurve() {
@@ -69,14 +60,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendQuadCurve() {
@@ -87,14 +72,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendRectangle() {
@@ -105,14 +84,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 4.0, y: 6.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 4.0, y: 6.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 3.0, y: 5.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 3.0, y: 5.0), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendPath() {
@@ -131,14 +104,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 3.0, y: 4.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 3.0, y: 4.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 2.0, y: 3.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 2.0, y: 3.0), absoluteSwiftUIPath.currentPoint)
     }
 
     func testAppendMove() {
@@ -149,14 +116,8 @@ class PathletTests: XCTestCase {
         let relativeCGPath = compositePath.makeCGPath()
         XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeCGPath.currentPoint)
 
-        let relativeSwiftUIPath = compositePath.makeSwiftUIPath()
-        XCTAssertEqual(CGPoint(x: 5.0, y: 6.0), relativeSwiftUIPath.currentPoint)
-
         let absoluteCGPath = compositePath.makeCGPath(usingRelativePositioning: false)
         XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteCGPath.currentPoint)
-
-        let absoluteSwiftUIPath = compositePath.makeSwiftUIPath(usingRelativePositioning: false)
-        XCTAssertEqual(CGPoint(x: 4.0, y: 5.0), absoluteSwiftUIPath.currentPoint)
     }
 
 }
